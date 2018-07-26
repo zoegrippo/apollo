@@ -1,1 +1,1 @@
-# apolloPlatform
+# Apollo Equity Platform
