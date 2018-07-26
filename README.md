@@ -1,1 +1,1 @@
-# Apollo Equity Platform
+# Apollo Equity Trading Platform
