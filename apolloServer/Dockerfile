@@ -1,4 +1,4 @@
-FROM docker.conygre.com:5000/centos
+FROM dockerreg.training.local:5000/centos
 MAINTAINER Ketan Reddy <ketan.reddy@citi.com>
 
 ENTRYPOINT ["/usr/bin/java", "-jar", "/usr/share/apollo/server.jar"]
