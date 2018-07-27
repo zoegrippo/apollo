@@ -1,4 +1,6 @@
 package com.apollo.com.apollo.entities;
 
-public class PriceBreakout {
+import java.io.Serializable;
+
+public class PriceBreakout extends Strategy implements Serializable {
 }

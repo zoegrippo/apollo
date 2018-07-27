@@ -15,7 +15,8 @@ create table users (
 
 create table strategies (
   id int primary key not null auto_increment,
-  strategyName varchar(20) not null
+  strategyName varchar(20) not null,
+  onoff bit not null
 );
 
 create table trades (
@@ -44,6 +45,8 @@ create table twoMovingAvgs (
 
 create table bollingerBands (
 	id int primary key not null auto_increment,
+	timePeriod int not null,
+	stdDevs int not null,
 	strategyId int not null,
 	userId int not null,
 

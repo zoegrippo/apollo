@@ -1,4 +1,6 @@
 package com.apollo.com.apollo.entities;
 
-public class TwoMovingAverages {
+import java.io.Serializable;
+
+public class TwoMovingAverages extends Strategy implements Serializable {
 }
