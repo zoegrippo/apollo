@@ -87,7 +87,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <repository>docker.conygre.com:5000/apolloserver</repository>
+                    <repository>dockerreg.training.local:5000/apolloserver</repository>
                     <tag>${project.version}</tag>
                     <buildArgs>
                         <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
