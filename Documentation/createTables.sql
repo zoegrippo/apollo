@@ -29,18 +29,21 @@ create table strategies (
 );
 
 create table twoMovingAvgs (
+	id int primary key not null auto_increment,
 	strategyId int not null,
     
     FOREIGN KEY (strategyId) references strategies(id)
 );
 
 create table bollingerBands (
+	id int primary key not null auto_increment,
 	strategyId int not null,
     
     FOREIGN KEY (strategyId) references strategies(id)
 );
 
 create table priceBreakout (
+	id int primary key not null auto_increment,
 	strategyId int not null,
     
     FOREIGN KEY (strategyId) references strategies(id)
