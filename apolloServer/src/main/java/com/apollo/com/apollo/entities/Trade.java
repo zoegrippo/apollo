@@ -1,10 +1,18 @@
 package com.apollo.com.apollo.entities;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name="trades")
+
+@NamedQueries(
+        {
+                @NamedQuery(name="trades.getById",
+                        query="select trade from Trade as trade where trade.id = :id",
+                        hints = {@QueryHint(name = "org.hibernate.cacheable", value = "true")}),
+        })
+
 public class Trade implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -13,7 +21,7 @@ public class Trade implements Serializable {
     @Column(name="price") private double price;
     @Column(name="size") private Integer size;
     @Column(name="stock") private String stock;
-    @Column(name="tradeDate") private String tradeDate;
+    @Column(name="tradeDate") private Timestamp tradeDate;
     @Column(name="state") private String state;
 
     @JoinColumn (name="strategyId", referencedColumnName="id", nullable = false)
@@ -25,7 +33,7 @@ public class Trade implements Serializable {
 
     public Trade() {}
 
-    public Trade(boolean buy, double price, Integer size, String stock, String tradeDate, String state, Strategy strategy, User user) {
+    public Trade(boolean buy, double price, Integer size, String stock, Timestamp tradeDate, String state, Strategy strategy, User user) {
         this.buy = buy;
         this.price = price;
         this.size = size;
@@ -76,11 +84,11 @@ public class Trade implements Serializable {
         this.stock = stock;
     }
 
-    public String getTradeDate() {
+    public Timestamp getTradeDate() {
         return tradeDate;
     }
 
-    public void setTradeDate(String tradeDate) {
+    public void setTradeDate(Timestamp tradeDate) {
         this.tradeDate = tradeDate;
     }
 
