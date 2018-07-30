@@ -5,21 +5,26 @@ import com.apollo.Constants;
 import com.apollo.objects.Quote;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class FeedPoll {
+public class FeedPollService {
 
-    private static final Logger log = LoggerFactory.getLogger(FeedPoll.class);
+    private final TickerHistoryService store;
+
+    private static final Logger log = LoggerFactory.getLogger(FeedPollService.class);
+
+    @Autowired
+    public FeedPollService(TickerHistoryService store) {
+        this.store = store;
+    }
 
     @Scheduled(fixedRate = Constants.POLLING_INTERVAL)
     public void pollMarket() {
@@ -28,12 +33,15 @@ public class FeedPoll {
             String[] symbols ={"msft",  "apl"};
             String resp = restTemplate.getForObject("http://feed.conygre.com:8080/MockYahoo/quotes.csv?s="+ String.join(",",symbols)+"&f=s0l1v0", String.class);
             List<Quote> quotes = new ArrayList<>();
-            String[] returns = resp.split("\n");
+            /*
+            Have to remove quotes around symbol name
+            have to split on new line to get data for each portion of the request
+             */
+            String[] returns = resp.replace("\"", "").split("\n");
             for (String params : returns){
-                quotes.add(new Quote(params.split(",")));
-            }
-            for (Quote quote : quotes) {
-                log.info(quote.toString());
+                Quote q = new Quote(params.split(","));
+                log.info("Adding tick for " + q.getSymbol());
+                store.addTick(q.getSymbol(),q);
             }
         }
 }
