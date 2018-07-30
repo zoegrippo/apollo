@@ -29,12 +29,6 @@ public class Strategy implements Serializable {
     @Column(name="exitLossPercent") private Double exitLossPercent;
     @Column(name="stdDevs") private Double stdDevs; // bollinger bands
     @Column(name="shortTime") private Integer shortTime; // two moving averages. short time also used for other two strategies
-//    @Column(name="longTime") private Integer longTime;
-//    @Column(name="highPrice") private Double highPrice; //price breakout
-//    @Column(name="lowPrice") private Double lowPrice;
-//    @Column(name="openPrice") private Double openPrice;
-//    @Column(name="closePrice") private Double closePrice;
-//    @Column(name="longShort") private boolean longShort;
     @JoinColumn(name="userId", referencedColumnName="id", nullable = false)
     private User user;
 

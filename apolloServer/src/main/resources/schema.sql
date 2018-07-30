@@ -1,6 +1,3 @@
-CREATE DATABASE IF NOT EXISTS apollo;
-use apollo;
-
 DROP TABLE IF EXISTS trades;
 DROP TABLE IF EXISTS strategies;
 DROP TABLE IF EXISTS users;
