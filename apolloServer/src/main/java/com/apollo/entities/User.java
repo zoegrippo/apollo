@@ -1,4 +1,4 @@
-package com.apollo.com.apollo.entities;
+package com.apollo.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;

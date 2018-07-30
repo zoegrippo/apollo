@@ -1,5 +1,4 @@
-package com.apollo.com.apollo.entities;
-
+package com.apollo.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,7 +10,7 @@ import java.io.Serializable;
                 @NamedQuery(name="strategies.getActive",
                         query="select strategy from Strategy as strategy where strategy.isRunning = true",
                         hints = {@QueryHint(name = "org.hibernate.cacheable", value = "true")}),
-                @NamedQuery(name="strategies.getTickers",
+                        @NamedQuery(name="strategies.getTickers",
                         query="select distinct strategy.stock from Strategy as strategy where strategy.isRunning = true",
                         hints = {@QueryHint (name = "org.hibernate.cacheable", value = "true")})
         })
