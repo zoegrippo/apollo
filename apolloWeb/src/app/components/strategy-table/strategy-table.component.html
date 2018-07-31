@@ -1,0 +1,56 @@
+<ag-grid-angular
+  
+  #agGrid
+  class="ag-theme-balham strategy-table"
+  [enableSorting]="true"
+  [gridOptions]="gridOptions"
+  [enableColResize]="true"
+  [animateRows]="true"
+  >
+</ag-grid-angular>
+
+<div class="strategy-create-form">
+    <tr>
+      <td>
+        <div class="control">
+          <div class="select">
+              <select id="strategyName"
+              [(ngModel)]="newStrategy.strategyName" name="strategyName">
+              <option *ngFor="let name of strategyNames; let i = index"
+                [value]="name">{{ name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </td>
+      <td>
+          <input class="input" type="text" 
+            [(ngModel)]="newStrategy.stock" placeholder="Ticker">
+      </td>
+      <td>
+          <input class="input" type="number" 
+            [(ngModel)]="newStrategy.startingVol" placeholder="Volume">
+      </td>
+      <td>
+          <input class="input" type="number" 
+            [(ngModel)]="newStrategy.exitProfitPercent" placeholder="Exit Profit Percentage">
+      </td>
+      <td>
+          <input class="input" type="number" 
+            [(ngModel)]="newStrategy.exitLossPercent" placeholder="Exit Loss Percentage">
+      </td>
+      <td>
+          <input class="input" type="number" 
+            [(ngModel)]="newStrategy.stdDevs" placeholder="Standard Dev. Limit">
+      </td>
+      <td>
+          <input class="input" type="number" 
+            [(ngModel)]="newStrategy.shortTime" placeholder="Average Timespan">
+      </td>
+      <td>
+        <button (click)="createStrategy()" class="button is-success" title="Add Strategy">Add</button>
+      </td>
+  
+    </tr>
+</div>
+     
