@@ -1,3 +1,5 @@
+package com.apollo.service;
+
 import com.apollo.entities.Strategy;
 import com.apollo.entities.User;
 import com.apollo.repos.StrategyRepository;
