@@ -1,6 +1,6 @@
 import { StrategyService } from './../../services/strategy/strategy.service';
 import { Component, OnInit } from '@angular/core';
-import { Strategy } from '../../services/classes/strategy';
+import { Strategy } from '../../classes/strategy';
 import { GridOptions } from 'ag-grid';
 
 
@@ -76,6 +76,7 @@ export class StrategyTableComponent implements OnInit {
     console.log(this.newStrategy);
     this.strategyService.createStrategy(this.newStrategy)
       .subscribe(id => {
+        console.log(id);
         this.newStrategy.id = id;
         this.strategies.push(this.newStrategy);
         this.gridOptions.rowData = this.strategies;
