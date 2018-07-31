@@ -4,22 +4,22 @@ DROP TABLE IF EXISTS users;
 
 create table users (
 	id int primary key not null auto_increment,
-  userName varchar(30) not null
+  username varchar(30) not null
 );
 
 create table strategies (
   id int primary key not null auto_increment,
-  strategyName varchar(20) not null,
+  strategyname varchar(20) not null,
   onoff bit not null,
-  userId int not null,
-  startingVol int not null, -- our starting amount of stock
+  userid int not null,
+  startingvol int not null, -- our starting amount of stock
   stock varchar(4) not null, -- stock ticker symbol
-  exitProfitPercent double not null, -- when the strategy exits given a certain profit or loss
-  exitLossPercent double not null,
+  exitprofitpercent double not null, -- when the strategy exits given a certain profit or loss
+  exitlosspercent double not null,
 
-	stdDevs double, -- for bollinger bands
+	stddevs double, -- for bollinger bands
 
-  shortTime int not null, -- for two moving averages, short time is used for all 3 strategies
+  shorttime int not null, -- for two moving averages, short time is used for all 3 strategies
 --   longTime int,
 --
 -- 	highPrice double, -- for price breakout
@@ -28,7 +28,7 @@ create table strategies (
 -- 	closePrice double,
 -- 	longShort bit,
 
-    FOREIGN KEY (userId) references users(id)
+    FOREIGN KEY (userid) references users(id)
 );
 
 create table trades (
@@ -37,11 +37,11 @@ create table trades (
 	price double not null,
 	size int not null,
 	stock varchar(4) not null, -- the stock ticker symbol
-	tradeDate datetime not null,
+	tradedate datetime not null,
 	state varchar(10) not null, -- cancelled, executed, in process, etc
-  strategyId int not null,
-  userId int not null,
+  strategyid int not null,
+  userid int not null,
 
-    FOREIGN KEY (strategyId) references strategies(id),
-    FOREIGN KEY (userId) references users(id)
+    FOREIGN KEY (strategyid) references strategies(id),
+    FOREIGN KEY (userid) references users(id)
 );
