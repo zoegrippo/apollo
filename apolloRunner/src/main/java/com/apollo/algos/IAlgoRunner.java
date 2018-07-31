@@ -1,6 +1,8 @@
 package com.apollo.algos;
 
+import com.apollo.entities.Trade;
+
 public interface IAlgoRunner {
 
-    public void run();
+    public Trade run();
 }

@@ -1,19 +1,20 @@
 package com.apollo.services;
 
 import com.apollo.Constants;
-import javafx.application.Application;
+import com.apollo.algos.BollingerBandsRunner;
+import com.apollo.algos.IAlgoRunner;
+import com.apollo.entities.Strategy;
+import com.apollo.entities.Trade;
+import com.apollo.entities.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessageCreator;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.Session;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AlgoDispatchService {
@@ -31,23 +32,32 @@ public class AlgoDispatchService {
     }
 
     @Scheduled(fixedRate = Constants.ALGO_INTERVAL)
-    public void runDispatch(){
-        log.info(store.getTickerSymbols().toString());
-        store.getHistorySlice("apl",0,1);
-
-        // add trade to db
-
-        //send trade
-        MessageCreator messageCreator = new MessageCreator() {
-            @Override
-            public Message createMessage(Session session) throws JMSException {
-                return session.createTextMessage("ping!");
+    public void runDispatch() {
+        //get active algos
+        Strategy strat = new Strategy("ballingerbands", true, 100, "msft", 10.0, 10.0, 2.0, 10, new User("Ketan"));
+        List<Strategy> strategies = new ArrayList<>();
+        strategies.add(strat);
+        // lambda for run
+        strategies.parallelStream().forEach((Strategy s) -> {
+            // Determine which strategy to run
+            IAlgoRunner runner;
+            if (s.getStrategyName() == Constants.ALGO_BOLLINGERBANDS) {
+                runner = new BollingerBandsRunner(s, store);
+            } else {
+                log.warn("Unknown strategy type " + s.getStrategyName());
+                return;
             }
-        };
-        JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
-        log.info("Sending a new message.");
-        jmsTemplate.send("dynamicQueues/OrderBroker", messageCreator);
+            // Get strategy result
+            Trade t = runner.run();
+            if (t == null) {
+                log.warn("Unable to strategy " + s.getStrategyName());
+                return;
+            }
 
+            // add trade to db
+            log.info("Make trade on " + (t.getBuy() ? "Buy": "Sell") + " side");
+            //send trade
 
+        });
     }
 }
