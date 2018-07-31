@@ -6,13 +6,6 @@ import java.sql.Timestamp;
 @Entity
 @Table(name="trades")
 
-@NamedQueries(
-        {
-                @NamedQuery(name="trades.getById",
-                        query="select trade from Trade as trade where trade.id = :id",
-                        hints = {@QueryHint(name = "org.hibernate.cacheable", value = "true")}),
-        })
-
 public class Trade implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
