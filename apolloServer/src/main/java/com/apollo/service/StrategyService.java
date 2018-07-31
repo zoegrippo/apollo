@@ -9,8 +9,6 @@ public interface StrategyService {
     //only at the Service level
     Collection<Strategy> getActive();
     Collection<String> getTickers();
-<<<<<<< Updated upstream
-=======
 
     // at the /strategy endpoint
     Collection<Strategy> getAll();
@@ -25,5 +23,4 @@ public interface StrategyService {
 
     // at the /strategy/stop endpoint
     String stopById(ArrayList<Integer> ids);
->>>>>>> Stashed changes
 }
