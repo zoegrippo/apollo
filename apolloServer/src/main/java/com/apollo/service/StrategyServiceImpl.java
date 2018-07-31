@@ -36,7 +36,7 @@ public class StrategyServiceImpl implements StrategyService {
         if (dao.exists(s.getId())) {
             result = "Updated strategy";
         } else {
-            result = "Saved new strategy";
+            result = s.getId().toString();
         }
         dao.save(s);
         return result;
