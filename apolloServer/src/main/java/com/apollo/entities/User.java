@@ -1,4 +1,4 @@
-package com.apollo.com.apollo.entities;
+package com.apollo.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,8 +9,13 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id") private Integer id;
+    @Column(name="userName") private String userName;
 
-    @Column(name="name") private String name;
+    public User() {}
+
+    public User(String userName) {
+        this.userName = userName;
+    }
 
     public Integer getId() {
         return id;
@@ -21,10 +26,10 @@ public class User implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return userName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.userName = name;
     }
 }
