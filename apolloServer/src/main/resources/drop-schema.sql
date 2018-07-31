@@ -1,6 +1,3 @@
 DROP TABLE IF EXISTS trades;
 DROP TABLE IF EXISTS strategies;
-DROP TABLE IF EXISTS twoMovingAvgs;
-DROP TABLE IF EXISTS bollingerBands;
-DROP TABLE IF EXISTS priceBreakout;
 DROP TABLE IF EXISTS users;
