@@ -10,7 +10,7 @@ create table users (
 create table strategies (
   id int primary key not null auto_increment,
   strategyName varchar(20) not null,
-  isRunning bit not null,
+  onoff bit not null,
   userId int not null,
   startingVol int not null, -- our starting amount of stock
   stock varchar(4) not null, -- stock ticker symbol

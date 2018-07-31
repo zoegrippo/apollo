@@ -4,24 +4,13 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="strategies")
-
-@NamedQueries(
-        {
-                @NamedQuery(name="strategies.getActive",
-                        query="select strategy from Strategy as strategy where strategy.isRunning = true",
-                        hints = {@QueryHint(name = "org.hibernate.cacheable", value = "true")}),
-                        @NamedQuery(name="strategies.getTickers",
-                        query="select distinct strategy.stock from Strategy as strategy where strategy.isRunning = true",
-                        hints = {@QueryHint (name = "org.hibernate.cacheable", value = "true")})
-        })
-
 public class Strategy implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id") private Integer id;
 
     @Column(name="strategyName") private String strategyName;
-    @Column(name="isRunning") private boolean isRunning;
+    @Column(name="onoff") private boolean onoff;
     @Column(name="startingVol") private Integer startingVol;
     @Column(name="stock") private String stock; // stock ticker symbol
     @Column(name="exitProfitPercent") private Double exitProfitPercent;
@@ -33,9 +22,9 @@ public class Strategy implements Serializable {
 
     public Strategy() {}
 
-    public Strategy(String strategyName, boolean isRunning, Integer startingVol, String stock, Double exitProfitPercent, Double exitLossPercent, Double stdDevs, Integer shortTime, User user) {
+    public Strategy(String strategyName, boolean onoff, Integer startingVol, String stock, Double exitProfitPercent, Double exitLossPercent, Double stdDevs, Integer shortTime, User user) {
         this.strategyName = strategyName;
-        this.isRunning = isRunning;
+        this.onoff = onoff;
         this.startingVol = startingVol;
         this.stock = stock;
         this.exitProfitPercent = exitProfitPercent;
@@ -61,12 +50,12 @@ public class Strategy implements Serializable {
         this.strategyName = strategyName;
     }
 
-    public boolean isRunning() {
-        return isRunning;
+    public boolean isOnoff() {
+        return onoff;
     }
 
-    public void setRunning(boolean running) {
-        isRunning = running;
+    public void setOnoff(boolean onoff) {
+        this.onoff = onoff;
     }
 
     public Integer getStartingVol() {

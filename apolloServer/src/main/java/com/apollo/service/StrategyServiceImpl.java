@@ -14,11 +14,11 @@ public class StrategyServiceImpl implements StrategyService {
 
     @Override
     public Collection<Strategy> getActive() {
-        return dao.findStrategiesByRunningIs(true);
+        return dao.findStrategiesByOnoffIs(true);
     }
 
     @Override
     public Collection<String> getTickers() {
-        return dao.findStockByRunningIsTrue();
+        return dao.findStockByOnoffIsTrue();
     }
 }
