@@ -21,21 +21,20 @@ export class StrategyService {
   }
 
   getStrategies(): Observable<Strategy[]> {
-    return of(STRATEGIES);
+    const url = `${SERVER}:${PORT}/strategy`;
+    return this.http.get<Strategy[]>(url);
   }
 
   createStrategy(strategy: Strategy): Observable<any> {
     // http request to create strategy
     // return new strategy id
-    // return of(5);
-    const url = `${SERVER}:${PORT}/strategy`;
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post(url, strategy, this.httpOptions);
-    // .map(this.extractData).catch();
+    const url = `${SERVER}:${PORT}/strategy`;
+    return this.http.post(url, JSON.stringify(strategy), this.httpOptions);
   }
 
   extractData(response: Response): any {

@@ -1,7 +1,7 @@
 export class Strategy {
     id: number;
     strategyName: string;
-    userId: number;
+    user: any;
     onoff: boolean;
     stock: string;
     startingVol: number;
@@ -14,7 +14,7 @@ export class Strategy {
     constructor(
         id: number,
         strategyName: string,
-        userId: number,
+        user: any,
         onoff: boolean,
         stock: string,
         startingVol: number,
@@ -25,7 +25,7 @@ export class Strategy {
     ) {
         this.id = id;
         this.strategyName = strategyName;
-        this.userId = userId;
+        this.user = user;
         this.onoff = onoff;
         this.stock = stock;
         this.startingVol = startingVol;

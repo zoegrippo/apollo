@@ -32,14 +32,17 @@ public class StrategyServiceImpl implements StrategyService {
 
     @Override
     public String createOrUpdate(Strategy s) {
-        String result;
-        if (dao.exists(s.getId())) {
-            result = "Updated strategy";
-        } else {
-            result = s.getId().toString();
+        if(s.getId() == null) {
+            s.setId(0);
         }
-        dao.save(s);
-        return result;
+
+        if (dao.exists(s.getId())) {
+            dao.save(s);
+            return "Updated strategy";
+
+        } else {
+            return dao.save(s).getId().toString();
+        }
     }
 
     // at the /strategy/{id} endpoint

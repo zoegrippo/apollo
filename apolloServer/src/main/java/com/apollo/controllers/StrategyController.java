@@ -18,7 +18,7 @@ public class StrategyController {
     private StrategyService service;
 
     @ApiOperation(value = "getAll", nickname = "getAll")
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<?> getAll() {
         try {
             return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
@@ -28,11 +28,12 @@ public class StrategyController {
     }
 
     @ApiOperation(value = "createNewStrategy", nickname = "createNewStrategy")
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<?> createNewStrategy(@RequestBody Strategy s) {
         try {
             return new ResponseEntity<>(service.createOrUpdate(s), HttpStatus.OK);
         } catch (Exception e) {
+            System.out.println("POST ERROR");
             return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

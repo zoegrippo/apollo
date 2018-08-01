@@ -56,9 +56,11 @@ export class StrategyTableComponent implements OnInit {
   getStrategies(): void {
     this.strategyService.getStrategies()
       .subscribe(strategies => {
+        console.log(strategies);
         this.strategies = strategies;
         this.gridOptions.rowData = this.strategies;
-
+        // setRowData is what re-renders the grid with the new data
+        this.gridOptions.api.setRowData(strategies);
       });
   }
 
@@ -90,7 +92,7 @@ export class StrategyTableComponent implements OnInit {
       this.newStrategy = new Strategy(
       null,
       this.strategyNames ? this.strategyNames[0] : null,
-      null,
+      {'id': 1},
       true,
       null,
       null,
