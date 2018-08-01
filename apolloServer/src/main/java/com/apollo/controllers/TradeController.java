@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.net.ssl.HttpsURLConnection;
+import java.sql.Timestamp;
+
 @RestController
 @CrossOrigin // allows requests from all domains
 @RequestMapping("/trade")
@@ -40,6 +43,16 @@ public class TradeController {
     public ResponseEntity<?> getByStrategyId(@PathVariable("id") int id) {
         try {
             return new ResponseEntity<>(service.getTradeByStrategy(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @ApiOperation(value = "getByStrategyId", nickname = "getByStrategyId")
+    @GetMapping("/{id}/{time}")
+    public ResponseEntity<?> getByStrategyId(@PathVariable("id") int id, @PathVariable("time") Timestamp time) {
+        try {
+            return new ResponseEntity<>(service.getTradeByStrategyaAndDate(id, time), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }

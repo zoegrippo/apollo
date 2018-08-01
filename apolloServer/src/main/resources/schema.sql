@@ -38,7 +38,7 @@ create table trades (
 	size int not null,
 	stock varchar(4) not null, -- the stock ticker symbol
 	tradedate datetime not null,
-	state varchar(10) not null, -- cancelled, executed, in process, etc
+	state varchar(20) not null, -- cancelled, executed, in process, etc
   strategyid int not null,
   userid int not null,
 

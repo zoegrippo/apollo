@@ -5,6 +5,7 @@ import com.apollo.repos.TradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 
 @Service
@@ -40,5 +41,11 @@ public class TradeServiceImpl implements TradeService {
     @Override
     public Collection<Trade> getTradeByStrategy(int id) {
         return dao.getAllByStrategy_Id(id);
+    }
+
+    // at the /trade/{id}/{date} endpoint
+    @Override
+    public Collection<Trade> getTradeByStrategyaAndDate(int id, Timestamp time) {
+        return dao.getAllByStrategy_IdAnAndTradeDate(id, time);
     }
 }
