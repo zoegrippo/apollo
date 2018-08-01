@@ -12,12 +12,13 @@ import java.util.ArrayList;
 
 @RestController
 @CrossOrigin // allows requests from all domains
+@RequestMapping("/strategy")
 public class StrategyController {
     @Autowired
     private StrategyService service;
 
     @ApiOperation(value = "getAll", nickname = "getAll")
-    @RequestMapping(value = "/strategy", method = RequestMethod.GET)
+    @GetMapping("/")
     public ResponseEntity<?> getAll() {
         try {
             return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
@@ -27,7 +28,7 @@ public class StrategyController {
     }
 
     @ApiOperation(value = "createNewStrategy", nickname = "createNewStrategy")
-    @RequestMapping(value = "/strategy", method = RequestMethod.POST)
+    @PostMapping("/")
     public ResponseEntity<?> createNewStrategy(@RequestBody Strategy s) {
         try {
             return new ResponseEntity<>(service.createOrUpdate(s), HttpStatus.OK);
@@ -37,7 +38,7 @@ public class StrategyController {
     }
 
     @ApiOperation(value = "getStrategyById", nickname = "getStrategyById")
-    @RequestMapping(value = "/strategy/{id}", method = RequestMethod.GET)
+    @GetMapping("/{id}")
     public ResponseEntity<?> getStrategyById(@PathVariable("id") int id) {
         try {
             return new ResponseEntity<>(service.getById(id), HttpStatus.OK);
@@ -47,7 +48,7 @@ public class StrategyController {
     }
 
     @ApiOperation(value = "deleteStrategyById", nickname = "deleteStrategyById")
-    @RequestMapping(value = "/strategy/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("{id}")
     public ResponseEntity<?> deleteStrategyById(@PathVariable("id") int id) {
         try {
             return new ResponseEntity<>(service.deleteById(id), HttpStatus.OK);
@@ -57,7 +58,7 @@ public class StrategyController {
     }
 
     @ApiOperation(value = "startStrategyById", nickname = "startStrategyById")
-    @RequestMapping(value = "/strategy/start", method = RequestMethod.POST)
+    @PostMapping("/start")
     public ResponseEntity<?> startStrategyById(@RequestBody ArrayList<Integer> ids) {
         try {
             return new ResponseEntity<>(service.startById(ids), HttpStatus.OK);
@@ -67,7 +68,7 @@ public class StrategyController {
     }
 
     @ApiOperation(value = "stopStrategyById", nickname = "stopStrategyById")
-    @RequestMapping(value = "/strategy/stop", method = RequestMethod.POST)
+    @PostMapping("/stop")
     public ResponseEntity<?> stopStrategyById(@RequestBody ArrayList<Integer> ids) {
         try {
             return new ResponseEntity<>(service.stopById(ids), HttpStatus.OK);

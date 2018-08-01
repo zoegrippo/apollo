@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin // allows requests from all domains
+@RequestMapping("/trade")
 public class TradeController {
     @Autowired
     private TradeService service;
 
     @ApiOperation(value = "getAll", nickname = "getAll")
-    @RequestMapping(value = "/trade", method = RequestMethod.GET)
+    @GetMapping("/")
     public ResponseEntity<?> getAll() {
         try {
             return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
@@ -25,7 +26,7 @@ public class TradeController {
     }
 
     @ApiOperation(value = "createNewTrade", nickname = "createNewTrade")
-    @RequestMapping(value = "/trade", method = RequestMethod.POST)
+    @PostMapping("/")
     public ResponseEntity<?> createNewStrategy(@RequestBody Trade t) {
         try {
             return new ResponseEntity<>(service.createOrUpdate(t), HttpStatus.OK);
@@ -35,7 +36,7 @@ public class TradeController {
     }
 
     @ApiOperation(value = "getByStrategyId", nickname = "getByStrategyId")
-    @RequestMapping(value = "/trade/{id}", method = RequestMethod.GET)
+    @GetMapping("/{id}")
     public ResponseEntity<?> getByStrategyId(@PathVariable("id") int id) {
         try {
             return new ResponseEntity<>(service.getTradeByStrategy(id), HttpStatus.OK);
