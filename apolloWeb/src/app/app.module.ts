@@ -1,3 +1,4 @@
+import { TradeTableComponent } from './components/trade-table/trade-table.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +11,8 @@ import { StrategyTableComponent } from './components/strategy-table/strategy-tab
 @NgModule({
   declarations: [
     AppComponent,
-    StrategyTableComponent
+    StrategyTableComponent,
+    TradeTableComponent
   ],
   imports: [
     BrowserModule,

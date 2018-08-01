@@ -1,4 +1,4 @@
-import { StrategyService } from './../../services/strategy/strategy.service';
+import { StrategyService } from '../../services/strategy/strategy.service';
 import { Component, OnInit } from '@angular/core';
 import { Strategy } from '../../classes/strategy';
 import { GridOptions } from 'ag-grid';
@@ -30,18 +30,21 @@ export class StrategyTableComponent implements OnInit {
   }
 
   initGrid(): void {
+    this.initColumnData();
     this.gridOptions = <GridOptions>{
       onGridReady : () => {
         this.gridOptions.api.sizeColumnsToFit();
-      }
+      },
+      rowSelection: 'multiple',
+      suppressRowClickSelection: true
     };
-    this.initColumnData();
     this.gridOptions.columnDefs = this.columnDefs;
     this.gridOptions.rowData = [];
   }
 
   initColumnData(): void {
     this.columnDefs = [
+      {headerName: 'Graph', checkboxSelection: true, width: 25},
       {headerName: 'Name', field: 'strategyName'},
       {headerName: 'Ticker', field: 'stock'},
       {headerName: 'Volume', field: 'startingVol'},

@@ -1,6 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
-  <app-strategy-table></app-strategy-table>
+  <app-strategy-table *ngIf='showStrategyTable; else showTradeTable'></app-strategy-table>
+  <ng-template #showTradeTable><app-trade-table></app-trade-table></ng-template>
 </div>
 
 

@@ -1,7 +1,7 @@
-import { STRATEGIES } from './../../classes/mock-strategies';
+import { STRATEGIES } from '../../classes/mock-strategies';
 import { STRATEGY_NAMES } from '../../classes/mock-strategies';
 import { SERVER, PORT } from '../../constants/configConstants';
-import { Strategy } from './../../classes/strategy';
+import { Strategy } from '../../classes/strategy';
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
