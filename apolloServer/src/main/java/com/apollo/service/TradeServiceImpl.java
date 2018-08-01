@@ -25,14 +25,15 @@ public class TradeServiceImpl implements TradeService {
 
     @Override
     public String createOrUpdate(Trade t) {
-        String result;
-        if (dao.exists(t.getId())) {
-            result = "Updated trade";
-        } else {
-            result = t.getId().toString();
+        if(t.getId() == null) {
+            t.setId(0);
         }
-        dao.save(t);
-        return result;
+        if (dao.exists(t.getId())) {
+            dao.save(t);
+            return "Updated trade";
+        } else {
+            return dao.save(t).getId().toString();
+        }
     }
 
     // at the /trade/{id} endpoint
