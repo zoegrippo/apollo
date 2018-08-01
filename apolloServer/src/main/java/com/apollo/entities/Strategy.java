@@ -9,15 +9,15 @@ public class Strategy implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id") private Integer id;
 
-    @Column(name="strategyName") private String strategyName;
+    @Column(name="strategyname") private String strategyName;
     @Column(name="onoff") private boolean onoff;
-    @Column(name="startingVol") private Integer startingVol;
+    @Column(name="startingvol") private Integer startingVol;
     @Column(name="stock") private String stock; // stock ticker symbol
-    @Column(name="exitProfitPercent") private Double exitProfitPercent;
-    @Column(name="exitLossPercent") private Double exitLossPercent;
-    @Column(name="stdDevs") private Double stdDevs; // bollinger bands
-    @Column(name="shortTime") private Integer shortTime; // two moving averages. short time also used for other two strategies
-    @JoinColumn(name="userId", referencedColumnName="id", nullable = false)
+    @Column(name="exitprofitpercent") private Double exitProfitPercent;
+    @Column(name="exitlosspercent") private Double exitLossPercent;
+    @Column(name="stddevs") private Double stdDevs; // bollinger bands
+    @Column(name="shorttime") private Integer shortTime; // two moving averages. short time also used for other two strategies
+    @JoinColumn(name="userid", referencedColumnName="id", nullable = false)
     private User user;
 
     public Strategy() {}
