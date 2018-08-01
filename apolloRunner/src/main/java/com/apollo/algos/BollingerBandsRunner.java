@@ -1,17 +1,17 @@
 package com.apollo.algos;
 
-import com.apollo.Constants;
+import com.apollo.utilities.Constants;
 import com.apollo.entities.Strategy;
 import com.apollo.entities.Trade;
 import com.apollo.objects.Quote;
-import com.apollo.services.FeedPollService;
-import com.apollo.services.TickerHistoryService;
+import com.apollo.services.market.FeedPollService;
+import com.apollo.services.market.TickerHistoryService;
+import com.apollo.utilities.TickerHistoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class BollingerBandsRunner implements IAlgoRunner {
@@ -28,15 +28,10 @@ public class BollingerBandsRunner implements IAlgoRunner {
         this.store = store;
     }
 
-    public Trade run() {
+    public Trade run() throws TickerHistoryException {
         //get applicable trade history
-        int maxBucket = strategy.getShortTime() / (1000 * Constants.POLLING_INTERVAL);
-        List<Quote> history = store.getHistorySlice(strategy.getStock(), 0, maxBucket);
-
-        if (history == null) {
-            log.error("Error: Unable to run Strategy " + strategy.getStrategyName() + " due to insufficient market data");
-            return null;
-        }
+        int maxBucket = (1000 * strategy.getShortTime()) / Constants.POLLING_INTERVAL;
+        List<Quote> history = store.getHistorySlice(strategy.getStock().toLowerCase(), 0, maxBucket);
 
         //calculate std div over period
         double sum = 0.0;
@@ -52,7 +47,7 @@ public class BollingerBandsRunner implements IAlgoRunner {
         }
 
         standardDeviation = Math.sqrt(standardDeviation / history.size());
-
+        log.info("Moving AVG: " + movingAvg + " and stdDiv: "+ standardDeviation + " and lastprice " + history.get(0).getPrice());
         //make buy or sell
         double lastPrice = history.get(0).getPrice();
         if ( lastPrice>= movingAvg + standardDeviation * strategy.getStdDevs()) {
@@ -62,6 +57,7 @@ public class BollingerBandsRunner implements IAlgoRunner {
             // long
             return new Trade(true, lastPrice, strategy.getStartingVol(), strategy.getStock(), Timestamp.from(Instant.now()), "inprogress", strategy, strategy.getUser());
         } else {
+            // no trade action
             return null;
         }
 

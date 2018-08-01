@@ -1,7 +1,8 @@
-package com.apollo.services;
+package com.apollo.services.market;
 
-import com.apollo.Constants;
+import com.apollo.utilities.Constants;
 import com.apollo.objects.Quote;
+import com.apollo.utilities.TickerHistoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -37,15 +38,13 @@ public class TickerHistoryService {
         return history.keySet();
     }
 
-    public List<Quote> getHistorySlice(String symbol, int start, int end) {
+    public List<Quote> getHistorySlice(String symbol, int start, int end) throws TickerHistoryException {
         try {
             return history.get(symbol).subList(start, end);
         } catch (IndexOutOfBoundsException e) {
-            log.warn("Warning: Symbol " + symbol + " does not have enough history to run ");
-            return null;
+            throw new TickerHistoryException("Warning: Symbol " + symbol + " does not have enough history to run ");
         } catch (NullPointerException e) {
-            log.warn("Warning: Ticker Symbol " + symbol + " has uninitialized history array");
-            return null;
+            throw new TickerHistoryException("Warning: Ticker Symbol " + symbol + " has uninitialized history array");
         }
     }
 
