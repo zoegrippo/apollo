@@ -1,4 +1,4 @@
-FROM dockerreg.training.local:5000/centos
+FROM openjdk:8-alpine
 MAINTAINER Ketan Reddy <ketan.reddy@citi.com>
 
 ENTRYPOINT ["java", "-jar", "/usr/share/apollo/server.jar"]
