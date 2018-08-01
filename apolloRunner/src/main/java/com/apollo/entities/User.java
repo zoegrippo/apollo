@@ -10,7 +10,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "userName")
+    @Column(name = "username")
     private String userName;
 
     public User() {

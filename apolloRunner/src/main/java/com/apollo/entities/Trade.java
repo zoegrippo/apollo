@@ -27,16 +27,17 @@ public class Trade implements Serializable {
     private Integer size;
     @Column(name = "stock")
     private String stock;
-    @Column(name = "tradeDate")
+    @Column(name = "tradedate")
     private Timestamp tradeDate;
     @Column(name = "state")
     private String state;
 
-    @JoinColumn(name = "strategyId", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "strategyid", referencedColumnName = "id", nullable = false)
     @ManyToOne
     private Strategy strategy;
 
-    @JoinColumn(name = "userId", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "userid", referencedColumnName = "id", nullable = false)
+    @ManyToOne
     private User user;
 
     public Trade(int i, boolean b, double v, int i1, String aapl, Timestamp timestamp, String completed, Strategy strategy, User user) {
