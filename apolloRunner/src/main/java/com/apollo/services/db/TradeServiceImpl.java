@@ -19,4 +19,9 @@ public class TradeServiceImpl implements TradeService {
     public void addNewTrade(Trade t) {
         dao.save(t);
     }
+
+    @Override
+    public void updateTrade(Trade t) {
+        dao.save(t);
+    }
 }

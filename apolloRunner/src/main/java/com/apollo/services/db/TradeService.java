@@ -6,4 +6,6 @@ public interface TradeService {
     Trade getTradeById(int id);
 
     void addNewTrade(Trade t);
+
+    void updateTrade(Trade t);
 }

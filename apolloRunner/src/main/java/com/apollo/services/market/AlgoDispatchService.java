@@ -1,5 +1,7 @@
 package com.apollo.services.market;
 
+import com.apollo.objects.Order;
+import com.apollo.objects.Quote;
 import com.apollo.services.db.StrategyService;
 import com.apollo.services.db.TradeService;
 import com.apollo.services.market.FeedPollService;
@@ -14,9 +16,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
 import java.util.Collection;
 
 @Service
@@ -69,6 +76,10 @@ public class AlgoDispatchService {
                 tradeService.addNewTrade(t);
 
                 //send trade
+                // Send a message
+                MessageCreator messageCreator = session -> session.createTextMessage(new Order(t).toString());
+                JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
+                jmsTemplate.send("OrderBroker", messageCreator);
             } catch (TickerHistoryException e) {
                 log.error(e.getMessage());
             }
