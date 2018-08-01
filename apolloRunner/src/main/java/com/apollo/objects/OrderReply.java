@@ -1,8 +1,9 @@
 package com.apollo.objects;
 
-import com.apollo.entities.Trade;
+import javax.xml.bind.annotation.XmlRootElement;
 
-public class Order {
+@XmlRootElement(name = "trade")
+public class OrderReply {
 
     private String buy;
     private String id;
@@ -12,28 +13,16 @@ public class Order {
     private String whenAsDate;
     private String state;
 
+    public OrderReply () {}
 
-    public Order(Trade t) {
-        this.buy = t.getBuy() ? "true" : "false";
-        this.id = t.getId().toString();
-        this.price = Double.toString(t.getPrice());
-        this.size = Integer.toString(t.getSize());
-        this.stock = t.getStock();
-        this.whenAsDate = t.getTradeDate().toString();
-    }
-
-
-    public String toString() {
-        String s = "<trade>";
-        s += "<buy>" + this.buy + "</buy> ";
-        s += "<id>" + this.id + "</id>";
-        s += "<price>" + this.price + "</price>";
-        s += "<size>" + this.size + "</size>";
-        s += "<stock>" + this.stock + "</stock>";
-        s += "<whenAsDate>" + this.whenAsDate + "</whenAsDate>";
-        s += "</trade>";
-        return s;
-
+    public OrderReply(String buy, String id, String price, String size, String stock, String whenAsDate, String state) {
+        this.buy = buy;
+        this.id = id;
+        this.price = price;
+        this.size = size;
+        this.stock = stock;
+        this.whenAsDate = whenAsDate;
+        this.state = state;
     }
 
     public String getBuy() {

@@ -1,47 +1,31 @@
 package com.apollo.entities;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "trades")
-
-@NamedQueries(
-        {
-                @NamedQuery(name = "trades.getById",
-                        query = "select trade from Trade as trade where trade.id = :id",
-                        hints = {@QueryHint(name = "org.hibernate.cacheable", value = "true")}),
-        })
+@Table(name="trades")
 
 public class Trade implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Integer id;
-    @Column(name = "buy")
-    private boolean buy;
-    @Column(name = "price")
-    private double price;
-    @Column(name = "size")
-    private Integer size;
-    @Column(name = "stock")
-    private String stock;
-    @Column(name = "tradedate")
-    private Timestamp tradeDate;
-    @Column(name = "state")
-    private String state;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="id") private Integer id;
+    @Column(name="buy") private boolean buy;
+    @Column(name="price") private double price;
+    @Column(name="size") private Integer size;
+    @Column(name="stock") private String stock;
+    @Column(name="tradedate") private Timestamp tradeDate;
+    @Column(name="state") private String state;
 
-    @JoinColumn(name = "strategyid", referencedColumnName = "id", nullable = false)
+    @JoinColumn (name="strategyid", referencedColumnName="id", nullable = false)
     @ManyToOne
     private Strategy strategy;
 
-    @JoinColumn(name = "userid", referencedColumnName = "id", nullable = false)
+    @JoinColumn (name="userid", referencedColumnName="id", nullable = false)
     @ManyToOne
     private User user;
 
-    public Trade(int i, boolean b, double v, int i1, String aapl, Timestamp timestamp, String completed, Strategy strategy, User user) {
-    }
+    public Trade(int i, boolean b, double v, int i1, String aapl, Timestamp timestamp, String completed, Strategy strategy, User user) {}
 
     public Trade(boolean buy, double price, Integer size, String stock, Timestamp tradeDate, String state, Strategy strategy, User user) {
         this.buy = buy;
