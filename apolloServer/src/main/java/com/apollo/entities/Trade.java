@@ -1,7 +1,7 @@
-package com.apollo.com.apollo.entities;
+package com.apollo.entities;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name="trades")
@@ -10,20 +10,33 @@ public class Trade implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id") private Integer id;
-
-    @Column(name="buysell") private boolean buysell;
+    @Column(name="buy") private boolean buy;
     @Column(name="price") private double price;
     @Column(name="size") private Integer size;
     @Column(name="stock") private String stock;
-    @Column(name="tradeDate") private Date tradeDate;
+    @Column(name="tradedate") private Timestamp tradeDate;
     @Column(name="state") private String state;
 
-    @JoinColumn (name="strategyId", referencedColumnName="id", nullable = false)
+    @JoinColumn (name="strategyid", referencedColumnName="id", nullable = false)
     @ManyToOne
     private Strategy strategy;
 
-    @JoinColumn (name="userId", referencedColumnName="id", nullable = false)
+    @JoinColumn (name="userid", referencedColumnName="id", nullable = false)
+    @ManyToOne
     private User user;
+
+    public Trade(int i, boolean b, double v, int i1, String aapl, Timestamp timestamp, String completed, Strategy strategy, User user) {}
+
+    public Trade(boolean buy, double price, Integer size, String stock, Timestamp tradeDate, String state, Strategy strategy, User user) {
+        this.buy = buy;
+        this.price = price;
+        this.size = size;
+        this.stock = stock;
+        this.tradeDate = tradeDate;
+        this.state = state;
+        this.strategy = strategy;
+        this.user = user;
+    }
 
     public Integer getId() {
         return id;
@@ -33,12 +46,12 @@ public class Trade implements Serializable {
         this.id = id;
     }
 
-    public boolean isBuysell() {
-        return buysell;
+    public boolean getBuy() {
+        return buy;
     }
 
-    public void setBuysell(boolean buysell) {
-        this.buysell = buysell;
+    public void setBuy(boolean buy) {
+        this.buy = buy;
     }
 
     public double getPrice() {
@@ -65,11 +78,11 @@ public class Trade implements Serializable {
         this.stock = stock;
     }
 
-    public Date getTradeDate() {
+    public Timestamp getTradeDate() {
         return tradeDate;
     }
 
-    public void setTradeDate(Date tradeDate) {
+    public void setTradeDate(Timestamp tradeDate) {
         this.tradeDate = tradeDate;
     }
 
