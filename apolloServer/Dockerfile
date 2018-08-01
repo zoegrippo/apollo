@@ -1,7 +1,7 @@
-FROM dockerreg.training.local:5000/centos
+FROM openjdk:8-alpine
 MAINTAINER Ketan Reddy <ketan.reddy@citi.com>
 
-ENTRYPOINT ["/usr/bin/java", "-jar", "/usr/share/apollo/server.jar"]
+ENTRYPOINT ["java", "-jar", "/usr/share/apollo/server.jar"]
 
 # Add the service itself
 ADD target/ApolloServer-1.0-SNAPSHOT.jar /usr/share/apollo/server.jar
