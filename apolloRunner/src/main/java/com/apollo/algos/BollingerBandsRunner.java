@@ -60,6 +60,5 @@ public class BollingerBandsRunner implements IAlgoRunner {
             // no trade action
             return null;
         }
-
     }
 }

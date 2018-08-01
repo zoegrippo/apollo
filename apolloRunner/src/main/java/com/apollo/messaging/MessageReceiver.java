@@ -49,7 +49,8 @@ public class MessageReceiver {
         OrderReply result = converter.jaxbXMLToObject(message, OrderReply.class);
         System.out.println("Recieved reply for trade id " + result.getId());
         Trade t = tradeService.getTradeById(Integer.parseInt(result.getId()));
-        t.setState(result.getState().toLowerCase());
+        //System.out.println("RESULT: " + result.getResult());
+        t.setState(result.getResult().toLowerCase());
         tradeService.updateTrade(t);
     }
  }

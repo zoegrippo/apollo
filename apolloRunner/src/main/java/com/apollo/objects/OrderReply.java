@@ -11,18 +11,18 @@ public class OrderReply {
     private String size;
     private String stock;
     private String whenAsDate;
-    private String state;
+    private String result;
 
     public OrderReply () {}
 
-    public OrderReply(String buy, String id, String price, String size, String stock, String whenAsDate, String state) {
+    public OrderReply(String buy, String id, String price, String size, String stock, String whenAsDate, String result) {
         this.buy = buy;
         this.id = id;
         this.price = price;
         this.size = size;
         this.stock = stock;
         this.whenAsDate = whenAsDate;
-        this.state = state;
+        this.result = result;
     }
 
     public String getBuy() {
@@ -73,11 +73,11 @@ public class OrderReply {
         this.whenAsDate = whenAsDate;
     }
 
-    public String getState() {
-        return state;
+    public String getResult() {
+        return result;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setResult(String result) {
+        this.result = result;
     }
 }
