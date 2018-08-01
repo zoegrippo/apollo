@@ -45,5 +45,5 @@ public class TestTradeController {
 //                .contentType(MediaType.APPLICATION_JSON))
 //                .andExpect(status().isOk())
 //                .andExpect(jsonPath("$[0].title", is("Abba Gold")));
-//    }
+    }
 }
