@@ -48,7 +48,7 @@ public class StrategyController {
     }
 
     @ApiOperation(value = "deleteStrategyById", nickname = "deleteStrategyById")
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteStrategyById(@PathVariable("id") int id) {
         try {
             return new ResponseEntity<>(service.deleteById(id), HttpStatus.OK);
