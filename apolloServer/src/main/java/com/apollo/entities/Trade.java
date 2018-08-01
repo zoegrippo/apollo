@@ -22,6 +22,7 @@ public class Trade implements Serializable {
     private Strategy strategy;
 
     @JoinColumn (name="userid", referencedColumnName="id", nullable = false)
+    @ManyToOne
     private User user;
 
     public Trade(int i, boolean b, double v, int i1, String aapl, Timestamp timestamp, String completed, Strategy strategy, User user) {}

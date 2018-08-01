@@ -18,6 +18,7 @@ public class Strategy implements Serializable {
     @Column(name="stddevs") private Double stdDevs; // bollinger bands
     @Column(name="shorttime") private Integer shortTime; // two moving averages. short time also used for other two strategies
     @JoinColumn(name="userid", referencedColumnName="id", nullable = false)
+    @ManyToOne
     private User user;
 
     public Strategy() {}
