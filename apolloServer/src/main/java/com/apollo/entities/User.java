@@ -2,6 +2,8 @@ package com.apollo.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -9,7 +11,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id") private Integer id;
-    @Column(name="userName") private String userName;
+    @Column(name="username") private String userName;
 
     public User() {}
 

@@ -4,19 +4,18 @@ import com.apollo.entities.Strategy;
 import com.apollo.entities.Trade;
 import com.apollo.entities.User;
 import com.apollo.repos.TradeRepository;
-import com.apollo.service.TradeServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
-
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestTradeService {

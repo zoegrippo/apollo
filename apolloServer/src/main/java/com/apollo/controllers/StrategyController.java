@@ -6,21 +6,19 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
 @RestController
 @CrossOrigin // allows requests from all domains
+@RequestMapping("/strategy")
 public class StrategyController {
     @Autowired
     private StrategyService service;
 
     @ApiOperation(value = "getAll", nickname = "getAll")
-    @RequestMapping(value = "/strategy", method = RequestMethod.GET)
+    @GetMapping("/")
     public ResponseEntity<?> getAll() {
         try {
             return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
@@ -30,8 +28,8 @@ public class StrategyController {
     }
 
     @ApiOperation(value = "createNewStrategy", nickname = "createNewStrategy")
-    @RequestMapping(value = "/strategy", method = RequestMethod.POST)
-    public ResponseEntity<?> createNewStrategy(Strategy s) {
+    @PostMapping("/")
+    public ResponseEntity<?> createNewStrategy(@RequestBody Strategy s) {
         try {
             return new ResponseEntity<>(service.createOrUpdate(s), HttpStatus.OK);
         } catch (Exception e) {
@@ -40,8 +38,8 @@ public class StrategyController {
     }
 
     @ApiOperation(value = "getStrategyById", nickname = "getStrategyById")
-    @RequestMapping(value = "/strategy/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getStrategyById(int id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getStrategyById(@PathVariable("id") int id) {
         try {
             return new ResponseEntity<>(service.getById(id), HttpStatus.OK);
         } catch (Exception e) {
@@ -50,8 +48,8 @@ public class StrategyController {
     }
 
     @ApiOperation(value = "deleteStrategyById", nickname = "deleteStrategyById")
-    @RequestMapping(value = "/strategy/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteStrategyById(int id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteStrategyById(@PathVariable("id") int id) {
         try {
             return new ResponseEntity<>(service.deleteById(id), HttpStatus.OK);
         } catch (Exception e) {
@@ -60,8 +58,8 @@ public class StrategyController {
     }
 
     @ApiOperation(value = "startStrategyById", nickname = "startStrategyById")
-    @RequestMapping(value = "/strategy/start", method = RequestMethod.POST)
-    public ResponseEntity<?> startStrategyById(ArrayList<Integer> ids) {
+    @PostMapping("/start")
+    public ResponseEntity<?> startStrategyById(@RequestBody ArrayList<Integer> ids) {
         try {
             return new ResponseEntity<>(service.startById(ids), HttpStatus.OK);
         } catch (Exception e) {
@@ -70,8 +68,8 @@ public class StrategyController {
     }
 
     @ApiOperation(value = "stopStrategyById", nickname = "stopStrategyById")
-    @RequestMapping(value = "/strategy/stop", method = RequestMethod.POST)
-    public ResponseEntity<?> stopStrategyById(ArrayList<Integer> ids) {
+    @PostMapping("/stop")
+    public ResponseEntity<?> stopStrategyById(@RequestBody ArrayList<Integer> ids) {
         try {
             return new ResponseEntity<>(service.stopById(ids), HttpStatus.OK);
         } catch (Exception e) {
