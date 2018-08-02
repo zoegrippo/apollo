@@ -39,7 +39,6 @@ public class FeedPollService {
             return;
         }
         String symbolString = String.join(",", symbols).toLowerCase();
-        log.info("Gettings symbols: " + symbolString);
         String resp = restTemplate.getForObject("http://feed.conygre.com:8080/MockYahoo/quotes.csv?s=" + symbolString + "&f=s0l1v0", String.class);
         /*
         Have to remove quotes around symbol name

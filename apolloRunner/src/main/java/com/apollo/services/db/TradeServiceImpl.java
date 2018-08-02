@@ -5,6 +5,8 @@ import com.apollo.repos.TradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 @Service
 public class TradeServiceImpl implements TradeService {
     @Autowired
@@ -23,5 +25,10 @@ public class TradeServiceImpl implements TradeService {
     @Override
     public void updateTrade(Trade t) {
         dao.save(t);
+    }
+
+    @Override
+    public Collection<Trade> getTradeByStrategy(int id) {
+        return dao.getAllByStrategy_Id(id);
     }
 }
