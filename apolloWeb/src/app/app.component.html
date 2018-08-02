@@ -2,6 +2,7 @@
 <div>
   <app-strategy-table *ngIf='showStrategyTable; else showTradeTable'></app-strategy-table>
   <ng-template #showTradeTable><app-trade-table></app-trade-table></ng-template>
+  <app-trade-graph></app-trade-graph>
 </div>
 
 

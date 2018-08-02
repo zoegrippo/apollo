@@ -44,7 +44,7 @@ export class StrategyTableComponent implements OnInit {
 
   initColumnData(): void {
     this.columnDefs = [
-      {headerName: 'Graph', checkboxSelection: true, width: 25},
+      {headerName: 'Graph', checkboxSelection: true, width: 35},
       {headerName: 'Name', field: 'strategyName'},
       {headerName: 'Ticker', field: 'stock'},
       {headerName: 'Volume', field: 'startingVol'},
