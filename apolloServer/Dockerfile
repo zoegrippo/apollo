@@ -5,5 +5,7 @@ CMD ["/opt/itrs/netprobe/netprobe.linux_64", "$APPNAME", "-port", "7036", "-nopa
 
 ENTRYPOINT ["/usr/bin/java", "$JAVAOPT", "-jar", "/usr/share/apollo/server.jar"]
 
+EXPOSE 8081
+
 # Add the service itself
 ADD target/ApolloServer-1.0-SNAPSHOT.jar /usr/share/apollo/server.jar
