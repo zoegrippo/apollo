@@ -45,7 +45,7 @@ public class TradeServiceImpl implements TradeService {
 
     // at the /trade/{id}/{date} endpoint
     @Override
-    public Collection<Trade> getTradeByStrategyaAndDate(int id, Timestamp time) {
-        return dao.getAllByStrategy_IdAnAndTradeDate(id, time);
+    public Collection<Trade> getTradeByStrategyaAndTradeId(int sid, int tid) {
+        return dao.getAllByStrategy_IdAndTrade_Id(sid, tid);
     }
 }

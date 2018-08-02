@@ -11,9 +11,9 @@ import java.util.Collection;
 
 @Repository
 public interface TradeRepository extends JpaRepository<Trade, Integer> {
-    @Query(value = "select * from trades as t inner join strategies as s on t.strategyid = :id;", nativeQuery = true)
+    @Query(value = "select * from trades where strategyid = :id;", nativeQuery = true)
     Collection<Trade> getAllByStrategy_Id(@Param("id") int id);
 
-    @Query(value = "select * from trades as t inner join strategies as s on t.strategyid = :id and t.tradedate > :time", nativeQuery = true)
-    Collection<Trade> getAllByStrategy_IdAnAndTradeDate(@Param("id") int id, @Param("time") Timestamp time);
+    @Query(value = "select * from trades where strategyid = :sid and id > :tid;", nativeQuery = true)
+    Collection<Trade> getAllByStrategy_IdAndTrade_Id(@Param("sid") int sid, @Param("tid") int tid);
 }

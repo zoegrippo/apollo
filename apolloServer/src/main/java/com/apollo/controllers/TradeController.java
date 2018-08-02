@@ -50,9 +50,9 @@ public class TradeController {
 
     @ApiOperation(value = "getByStrategyId", nickname = "getByStrategyId")
     @GetMapping("/{id}/{time}")
-    public ResponseEntity<?> getByStrategyId(@PathVariable("id") int id, @PathVariable("time") Timestamp time) {
+    public ResponseEntity<?> getByStrategyId(@PathVariable("sid") int sid, @PathVariable("tid") int tid) {
         try {
-            return new ResponseEntity<>(service.getTradeByStrategyaAndDate(id, time), HttpStatus.OK);
+            return new ResponseEntity<>(service.getTradeByStrategyaAndTradeId(sid, tid), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
