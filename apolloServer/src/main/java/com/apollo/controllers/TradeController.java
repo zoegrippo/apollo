@@ -31,7 +31,8 @@ public class TradeController {
         try {
             return new ResponseEntity<>(service.getTradeByStrategy(id), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>("Error:\n" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
