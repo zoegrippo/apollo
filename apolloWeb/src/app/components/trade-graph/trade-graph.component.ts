@@ -24,7 +24,7 @@ export class TradeGraphComponent implements OnInit {
     this.tradeService.getTradesByStrategyId(1)
       .subscribe(trades => {
         console.log(trades);
-        this.trades = [1, 2, 3];
+        this.trades = [1, 2, -2, 3];
       });
   }
 

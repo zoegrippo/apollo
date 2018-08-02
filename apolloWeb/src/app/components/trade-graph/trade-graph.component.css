@@ -1,5 +1,6 @@
 .trade-graph {
-    height: calc(50vh - 60px);
-    width: 1000px;
+    height: calc(40vh - 20px) !important;
+    width: 800px;
     margin: auto;
+    padding: 20px 0 10px 0;
 }
