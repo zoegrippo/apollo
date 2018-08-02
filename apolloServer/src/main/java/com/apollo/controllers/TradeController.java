@@ -38,7 +38,7 @@ public class TradeController {
     @GetMapping("/{sid}/{tid}")
     public ResponseEntity<?> getLatestTrades(@PathVariable("sid") int sid, @PathVariable("tid") int tid) {
         try {
-            return new ResponseEntity<>(service.getTradeByStrategyaAndTradeId(sid, tid), HttpStatus.OK);
+            return new ResponseEntity<>(service.getTradeByStrategyAndTradeId(sid, tid), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
