@@ -42,7 +42,6 @@ public class StrategyServiceImpl implements StrategyService {
             if (dao.exists(s.getId())) {
                 dao.save(s);
                 return "Updated strategy";
-
             } else {
                 return dao.save(s).getId().toString();
             }
@@ -67,43 +66,5 @@ public class StrategyServiceImpl implements StrategyService {
             return "Deleted Strategy with ID number " + id;
         } else
             return "Unable to find Strategy with that ID or ID invalid";
-    }
-
-    // at the /strategy/start endpoint
-    @Override
-    public String startById(ArrayList<Integer> ids) {
-        ArrayList<Integer> actual = new ArrayList<>();
-        for (int i : ids) {
-            if (dao.exists(i)) {
-                actual.add(i);
-                Strategy s = dao.getOne(i);
-                s.setOnoff(true); // set to on option
-                dao.save(s);
-            }
-        }
-        if (actual.equals(ids)) {
-            return "Started all strategies in list";
-        } else {
-            return "Unable to start all strategies in list";
-        }
-    }
-
-    // at the /strategy/stop endpoint
-    @Override
-    public String stopById(ArrayList<Integer> ids) {
-        ArrayList<Integer> actual = new ArrayList<>();
-        for (int i : ids) {
-            if (dao.exists(i)) {
-                actual.add(i);
-                Strategy s = dao.getOne(i);
-                s.setOnoff(false); // set to on option
-                dao.save(s);
-            }
-        }
-        if (actual.equals(ids)) {
-            return "Stopped all strategies in list";
-        } else {
-            return "Unable to stop all strategies in list";
-        }
     }
 }
