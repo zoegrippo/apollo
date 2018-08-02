@@ -68,15 +68,21 @@ public class AlgoDispatchService {
             Collection<Trade> trades = tradeService.getTradeByStrategy(s.getId());
             List<Trade> tradeList = new ArrayList<>(trades);
             if (tradeList.size() > 2) {
+                // get profit from trades
                 tradeList.sort(Comparator.comparing(Trade::getTradeDate));
                 Trade firsTrade = tradeList.get(0);
-                double sum = 0.0;
+                double tradesum = 0.0;
                 for (Trade t : tradeList) {
-                    if (t.getState().equals("filled")) sum += t.getSize() * t.getPrice() * (t.getBuy() ? -1 : 1);
+                    if (t.getState().equals("filled")) tradesum += t.getSize() * t.getPrice() * (t.getBuy() ? -1 : 1);
                 }
-                double plp = (sum / (firsTrade.getSize() * firsTrade.getPrice()));
-                log.info("PL % for strat "+ s.getId() + ": "+ plp);
-;                if (plp > s.getExitProfitPercent() || plp < -1 * s.getExitLossPercent()) {
+                // get current asset value
+                long numBuy = tradeList.stream().filter(Trade::getBuy).count();
+                long numSell = tradeList.stream().filter(t-> !t.getBuy()).count();
+                double assetValue = (numBuy - numSell) * s.getStartingVol() * store.getLatestPrice(s.getStock()).getPrice();
+                // calculate pl
+                double pl = (tradesum + assetValue)/ (firsTrade.getSize() * firsTrade.getPrice());
+                log.info("PL % for strat "+ s.getId() + ": "+ pl);
+;                if (pl > s.getExitProfitPercent() || pl < -1 * s.getExitLossPercent()) {
                     log.info("Strategy " + s.getId() + " hit exit condition");
                     s.setOnoff(false);
                     return;
