@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.awt.image.IndexColorModel;
 import java.util.*;
 
 @Scope(value = "singleton")
@@ -48,8 +49,14 @@ public class TickerHistoryService {
         }
     }
 
-    public Quote getLatestPrice (String symbol) {
-        return history.get(symbol).get(0);
+    public Quote getLatestPrice (String symbol) throws TickerHistoryException {
+        try {
+            return history.get(symbol).get(0);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TickerHistoryException("Warning: Symbol " + symbol + " does not have enough history to run ");
+        } catch (NullPointerException e) {
+            throw new TickerHistoryException("Warning: Ticker Symbol " + symbol + " has uninitialized history array");
+        }
     }
 
 }
