@@ -47,7 +47,6 @@ public class BollingerBandsRunner implements IAlgoRunner {
         }
 
         standardDeviation = Math.sqrt(standardDeviation / history.size());
-        log.info("Moving AVG: " + movingAvg + " and stdDiv: "+ standardDeviation + " and lastprice " + history.get(0).getPrice());
         //make buy or sell
         double lastPrice = history.get(0).getPrice();
         if ( lastPrice>= movingAvg + standardDeviation * strategy.getStdDevs()) {

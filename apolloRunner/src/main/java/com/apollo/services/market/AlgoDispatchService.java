@@ -24,7 +24,10 @@ import org.springframework.stereotype.Service;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class AlgoDispatchService {
@@ -53,7 +56,6 @@ public class AlgoDispatchService {
         Collection<Strategy> strategies = strategyService.getActive();
         // lambda for run
         strategies.parallelStream().forEach((Strategy s) -> {
-            log.info("ID " + s.getId());
             // Determine which strategy to run
             IAlgoRunner runner;
             if (Constants.ALGO_BOLLINGERBANDS.equals(s.getStrategyName())) {
@@ -61,6 +63,24 @@ public class AlgoDispatchService {
             } else {
                 log.warn("Unknown strategy type " + s.getStrategyName());
                 return;
+            }
+            // check if exit condition is met
+            Collection<Trade> trades = tradeService.getTradeByStrategy(s.getId());
+            List<Trade> tradeList = new ArrayList<>(trades);
+            if (tradeList.size() > 2) {
+                tradeList.sort(Comparator.comparing(Trade::getTradeDate));
+                Trade firsTrade = tradeList.get(0);
+                double sum = 0.0;
+                for (Trade t : tradeList) {
+                    if (t.getState().equals("filled")) sum += t.getSize() * t.getPrice() * (t.getBuy() ? -1 : 1);
+                }
+                double plp = (sum / (firsTrade.getSize() * firsTrade.getPrice()));
+                log.info("PL % for strat "+ s.getId() + ": "+ plp);
+;                if (plp > s.getExitProfitPercent() || plp < -1 * s.getExitLossPercent()) {
+                    log.info("Strategy " + s.getId() + " hit exit condition");
+                    s.setOnoff(false);
+                    return;
+                }
             }
             // Get strategy result
             try {
@@ -71,7 +91,7 @@ public class AlgoDispatchService {
                 }
 
                 // add trade to db
-                log.info("Make trade on " + (t.getBuy() ? "Buy" : "Sell") + " side");
+                log.info("Strat "+s.getId()+" make trade on " + (t.getBuy() ? "Buy" : "Sell") + " side, " + s.getStock() + " at " +t.getPrice());
                 log.info(t.toString());
                 tradeService.addNewTrade(t);
 

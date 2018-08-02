@@ -25,7 +25,7 @@ public class TradeServiceImpl implements TradeService {
 
     @Override
     public String createOrUpdate(Trade t) {
-        if(t.getId() == null) {
+        if (t.getId() == null) {
             t.setId(0);
         }
         if (dao.exists(t.getId())) {

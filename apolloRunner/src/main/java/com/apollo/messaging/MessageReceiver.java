@@ -44,10 +44,8 @@ public class MessageReceiver {
      **/
     @JmsListener(destination = "OrderBroker_Reply", containerFactory = "myJmsContainerFactory")
     public void receiveMessage(String message) {
-        System.out.println("Received <" + message + ">");
         message = message.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>", "");
         OrderReply result = converter.jaxbXMLToObject(message, OrderReply.class);
-        System.out.println("Recieved reply for trade id " + result.getId());
         Trade t = tradeService.getTradeById(Integer.parseInt(result.getId()));
         t.setState(result.getResult().toLowerCase());
         tradeService.updateTrade(t);
