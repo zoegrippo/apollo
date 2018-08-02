@@ -16,5 +16,5 @@ public interface TradeService {
     Collection<Trade> getTradeByStrategy(int id);
 
     // at the /trade/{id}/{date} endpoint
-    Collection<Trade> getTradeByStrategyaAndTradeId(int id, int tid);
+    Collection<Trade> getTradeByStrategyAndTradeId(int id, int tid);
 }

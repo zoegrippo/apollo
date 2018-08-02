@@ -7,4 +7,3 @@ public class Constants {
     public static final int MAX_MARKET_STORE = 600;
     public static final String ALGO_BOLLINGERBANDS = "bollingerbands";
 }
-
