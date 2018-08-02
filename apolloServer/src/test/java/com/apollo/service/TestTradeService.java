@@ -39,7 +39,7 @@ public class TestTradeService {
         l.add(t2);
 
         when(data.findAll()).thenReturn(l);
-        when(data.getOne(2)).thenReturn(t1);
+        when(data.getOne(t1.getId())).thenReturn(t1);
 
         assertEquals(t1, tradeImpl.getTradeById(2));
     }

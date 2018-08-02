@@ -1,4 +1,4 @@
-package com.apollo.util;
+package com.apollo.utilities;
 
 import org.springframework.stereotype.Component;
 import java.io.StringReader;

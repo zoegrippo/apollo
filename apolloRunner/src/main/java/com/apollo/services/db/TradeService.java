@@ -1,4 +1,4 @@
-package com.apollo.service;
+package com.apollo.services.db;
 
 import com.apollo.entities.Trade;
 
@@ -10,6 +10,7 @@ public interface TradeService {
 
     // at the /trade endpoint
     Collection<Trade> getAll();
+    String createOrUpdate(Trade t);
 
     // at the /trade/{id} endpoint
     Collection<Trade> getTradeByStrategy(int id);
