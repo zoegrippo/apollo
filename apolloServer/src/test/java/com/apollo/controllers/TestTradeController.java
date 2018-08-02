@@ -29,8 +29,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {com.apollo.AppConfig.class})
 @WebMvcTest(TradeController.class)
+@ContextConfiguration(classes = {com.apollo.AppConfig.class})
 @TestPropertySource(locations = "classpath:application-test.properties")
 @DataJpaTest
 public class TestTradeController {

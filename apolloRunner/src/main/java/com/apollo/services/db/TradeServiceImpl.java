@@ -24,7 +24,7 @@ public class TradeServiceImpl implements TradeService {
     }
 
     @Override
-    public String createOrUpdate(Trade t) {
+    public String update(Trade t) {
         if (t.getId() == null) {
             t.setId(0);
         }
@@ -34,6 +34,11 @@ public class TradeServiceImpl implements TradeService {
         } else {
             return dao.save(t).getId().toString();
         }
+    }
+
+    @Override
+    public Trade create(Trade t) {
+        return dao.save(t);
     }
 
     // at the /trade/{id} endpoint
