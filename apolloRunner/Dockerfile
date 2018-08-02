@@ -1,6 +1,8 @@
 FROM dockerreg.training.local:5000/java
 MAINTAINER Ketan Reddy <ketan.reddy@citi.com>
 
-ENTRYPOINT ["java", "-jar", "/usr/share/apollo/runner.jar"]
+CMD ["/opt/itrs/netprobe/netprobe.linux_64", "$APPNAME", "-port", "7036", "-nopassword", "&"]
+
+ENTRYPOINT ["java", "$JAVA_OPTS", "-jar", "/usr/share/apollo/runner.jar"]
 
 ADD target/apolloRunner-1.0-SNAPSHOT.jar /usr/share/apollo/runner.jar
