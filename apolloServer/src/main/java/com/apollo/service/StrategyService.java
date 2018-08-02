@@ -17,10 +17,4 @@ public interface StrategyService {
     // at the /strategy/{id} endpoint
     Strategy getById(int id);
     String deleteById(int id);
-
-    // at the /strategy/start endpoint
-    String startById(ArrayList<Integer> ids);
-
-    // at the /strategy/stop endpoint
-    String stopById(ArrayList<Integer> ids);
 }
