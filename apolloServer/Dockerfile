@@ -1,4 +1,4 @@
-FROM dockerreg.training.local:5000/centos
+FROM dockerreg.training.local:5000/java
 MAINTAINER Ketan Reddy <ketan.reddy@citi.com>
 
 CMD ["/opt/itrs/netprobe/netprobe.linux_64", "$APPNAME", "-port", "7036", "-nopassword", "&"]
