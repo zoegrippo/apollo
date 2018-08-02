@@ -69,6 +69,8 @@ export class TradeGraphComponent implements OnInit {
     });
   }
 
+
+
   getTrades(strategyId: number): void {
     this.tradeService.getTradesByStrategyId(strategyId);
   }

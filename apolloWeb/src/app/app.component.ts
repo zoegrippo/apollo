@@ -7,11 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'apolloWeb';
-  showStrategyTable = true;
-  buttonText = 'Show Trades';
-  toggleTable(): void {
-    this.showStrategyTable = !this.showStrategyTable;
-    this.showStrategyTable ? this.buttonText = 'Show Trades'
-      : this.buttonText = 'Show Strategies';
-  }
 }

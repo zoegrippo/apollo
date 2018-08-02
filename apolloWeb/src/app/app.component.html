@@ -1,9 +1,12 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
-  <button style="margin: 10px 0 0 10px;" class="button" (click)="toggleTable()">{{ buttonText }}</button>
-  <app-strategy-table *ngIf='showStrategyTable; else showTradeTable'></app-strategy-table>
-  <ng-template #showTradeTable><app-trade-table></app-trade-table></ng-template>
   <app-trade-graph></app-trade-graph>
+  
+  <span style="margin:auto; width:100%;" class="columns">
+    <app-strategy-table class="column"></app-strategy-table>
+    <app-trade-table class="column"></app-trade-table>
+  </span>
+  
 </div>
 
 

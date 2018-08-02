@@ -52,12 +52,12 @@ export class StrategyTableComponent implements OnInit {
     this.columnDefs = [
       {headerName: 'Name', field: 'strategyName', checkboxSelection: true},
       {headerName: 'Ticker', field: 'stock'},
-      {headerName: 'Volume', field: 'startingVol'},
-      {headerName: 'Exit Profit %', field: 'exitProfitPercent'},
-      {headerName: 'Exit Loss %', field: 'exitLossPercent'},
-      {headerName: 'Std Devs', field: 'stdDevs'},
-      {headerName: 'Timespan', field: 'shortTime'},
-      {headerName: 'Running', field: 'onoff'}
+      {headerName: 'Volume', field: 'startingVol', editable: true },
+      {headerName: 'Exit Profit %', field: 'exitProfitPercent', editable: true },
+      {headerName: 'Exit Loss %', field: 'exitLossPercent', editable: true },
+      {headerName: 'Std Devs', field: 'stdDevs', editable: true },
+      {headerName: 'Timespan', field: 'shortTime', editable: true },
+      {headerName: 'Running', field: 'onoff', editable: true }
     ];
   }
 
@@ -103,6 +103,19 @@ export class StrategyTableComponent implements OnInit {
       this.mediatorService.selectedStrategy.next(this.selectedStrategy);
       console.log('selected strategy: ' + this.selectedStrategy);
     }
+  }
+
+  onCellValueChanged(event): void {
+    console.log('cell value changed event');
+    console.log(event);
+    const updatedStrategy = event.data;
+    if (typeof(updatedStrategy.onoff) !== typeof(true)) {
+      updatedStrategy.onoff === 'false' ? updatedStrategy.onoff = false : updatedStrategy.onoff = true;
+    }
+    this.strategyService.createOrUpdateStrategy(updatedStrategy)
+      .subscribe(ret => {
+        console.log('Updated strategy. Server Response: ' + ret);
+      });
   }
 
   resetNewStrategy(): void {

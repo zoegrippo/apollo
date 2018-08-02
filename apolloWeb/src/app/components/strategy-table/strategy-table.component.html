@@ -1,4 +1,4 @@
-<h1 class="title" style="margin:auto; text-align:center;">Strategies</h1>
+
 <ag-grid-angular
   
   #agGrid
@@ -8,6 +8,7 @@
   [enableColResize]="true"
   [animateRows]="true"
   (rowSelected)="onRowSelected($event)"
+  (cellValueChanged)="onCellValueChanged($event)"
   >
 </ag-grid-angular>
 
