@@ -2,7 +2,6 @@ package com.apollo.service;
 
 import com.apollo.entities.Trade;
 
-import java.sql.Timestamp;
 import java.util.Collection;
 
 public interface TradeService {
@@ -11,7 +10,6 @@ public interface TradeService {
 
     // at the /trade endpoint
     Collection<Trade> getAll();
-    String createOrUpdate(Trade t);
 
     // at the /trade/{id} endpoint
     Collection<Trade> getTradeByStrategy(int id);

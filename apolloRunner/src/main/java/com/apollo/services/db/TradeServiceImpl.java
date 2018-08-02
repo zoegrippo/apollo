@@ -42,7 +42,7 @@ public class TradeServiceImpl implements TradeService {
         return dao.getAllByStrategy_Id(id);
     }
 
-    // at the /trade/{id}/{date} endpoint
+    // at the /trade/{id}/{id} endpoint
     @Override
     public Collection<Trade> getTradeByStrategyaAndTradeId(int sid, int tid) {
         return dao.getAllByStrategy_IdAndTrade_Id(sid, tid);

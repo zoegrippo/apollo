@@ -24,19 +24,6 @@ public class TradeServiceImpl implements TradeService {
         return dao.findAll();
     }
 
-    @Override
-    public String createOrUpdate(Trade t) {
-        if(t.getId() == null) {
-            t.setId(0);
-        }
-        if (dao.exists(t.getId())) {
-            dao.save(t);
-            return "Updated trade";
-        } else {
-            return dao.save(t).getId().toString();
-        }
-    }
-
     // at the /trade/{id} endpoint
     @Override
     public Collection<Trade> getTradeByStrategy(int id) {

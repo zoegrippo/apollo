@@ -1,15 +1,11 @@
 package com.apollo.controllers;
 
-import com.apollo.entities.Trade;
 import com.apollo.service.TradeService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.net.ssl.HttpsURLConnection;
-import java.sql.Timestamp;
 
 @RestController
 @CrossOrigin // allows requests from all domains
@@ -28,19 +24,9 @@ public class TradeController {
         }
     }
 
-    @ApiOperation(value = "createNewTrade", nickname = "createNewTrade")
-    @PostMapping()
-    public ResponseEntity<?> createNewStrategy(@RequestBody Trade t) {
-        try {
-            return new ResponseEntity<>(service.createOrUpdate(t), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @ApiOperation(value = "getByStrategyId", nickname = "getByStrategyId")
+    @ApiOperation(value = "getTradesByStrategyId", nickname = "getTradesByStrategyId")
     @GetMapping("/{id}")
-    public ResponseEntity<?> getByStrategyId(@PathVariable("id") int id) {
+    public ResponseEntity<?> getTradesByStrategyId(@PathVariable("id") int id) {
         try {
             return new ResponseEntity<>(service.getTradeByStrategy(id), HttpStatus.OK);
         } catch (Exception e) {
@@ -48,9 +34,9 @@ public class TradeController {
         }
     }
 
-    @ApiOperation(value = "getByStrategyId", nickname = "getByStrategyId")
-    @GetMapping("/{id}/{time}")
-    public ResponseEntity<?> getByStrategyId(@PathVariable("sid") int sid, @PathVariable("tid") int tid) {
+    @ApiOperation(value = "getLatestTrades", nickname = "getLatestTrades")
+    @GetMapping("/{sid}/{tid}")
+    public ResponseEntity<?> getLatestTrades(@PathVariable("sid") int sid, @PathVariable("tid") int tid) {
         try {
             return new ResponseEntity<>(service.getTradeByStrategyaAndTradeId(sid, tid), HttpStatus.OK);
         } catch (Exception e) {
