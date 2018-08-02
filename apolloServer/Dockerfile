@@ -3,7 +3,7 @@ MAINTAINER Ketan Reddy <ketan.reddy@citi.com>
 
 CMD ["/opt/itrs/netprobe/netprobe.linux_64", "$APPNAME", "-port", "7036", "-nopassword", "&"]
 
-ENTRYPOINT ["/bin/sh", "-c", "java $JAVAOPT -jar /usr/share/apollo/server.jar"]
+ENTRYPOINT java $JAVAOPT -jar /usr/share/apollo/server.jar
 
 EXPOSE 8081
 
