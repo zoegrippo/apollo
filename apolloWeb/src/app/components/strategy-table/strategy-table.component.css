@@ -2,7 +2,7 @@
 @import "~ag-grid/dist/styles/ag-theme-balham.css";
 
 .strategy-table {
-    height: calc(50vh - 70px);
+    height: calc(40vh - 70px);
     width: 1100px;
     margin: auto;
     padding: 25px 0 0px 0;

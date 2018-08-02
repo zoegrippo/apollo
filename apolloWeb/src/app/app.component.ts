@@ -11,5 +11,7 @@ export class AppComponent {
   buttonText = 'Show Trades';
   toggleTable(): void {
     this.showStrategyTable = !this.showStrategyTable;
+    this.showStrategyTable ? this.buttonText = 'Show Trades'
+      : this.buttonText = 'Show Strategies';
   }
 }
