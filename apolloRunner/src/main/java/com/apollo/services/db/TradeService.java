@@ -10,11 +10,12 @@ public interface TradeService {
 
     // at the /trade endpoint
     Collection<Trade> getAll();
-    String createOrUpdate(Trade t);
+    String update(Trade t);
+    Trade create(Trade t);
 
     // at the /trade/{id} endpoint
     Collection<Trade> getTradeByStrategy(int id);
 
     // at the /trade/{id}/{date} endpoint
-    Collection<Trade> getTradeByStrategyAndTradeId(int id, int tid);
+    Collection<Trade> getTradeByStrategyAndTradeId(int sid, int tid);
 }
