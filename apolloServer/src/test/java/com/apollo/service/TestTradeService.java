@@ -4,6 +4,7 @@ import com.apollo.entities.Strategy;
 import com.apollo.entities.Trade;
 import com.apollo.entities.User;
 import com.apollo.repos.TradeRepository;
+import com.apollo.util.Validator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,6 +24,9 @@ public class TestTradeService {
     @Mock
     TradeRepository data;
 
+    @Mock
+    Validator validator;
+
     @InjectMocks
     TradeServiceImpl tradeImpl;
 
@@ -38,9 +42,9 @@ public class TestTradeService {
         l.add(t1);
         l.add(t2);
 
-        when(data.findAll()).thenReturn(l);
+        when(validator.validateId(t1.getId())).thenReturn(true);
         when(data.getOne(t1.getId())).thenReturn(t1);
 
-        assertEquals(t1, tradeImpl.getTradeById(2));
+        assertEquals(t1, tradeImpl.getTradeById(t1.getId()));
     }
 }
