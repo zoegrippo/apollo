@@ -1,4 +1,5 @@
-import { StrategyService } from './../../services/strategy/strategy.service';
+import { MediatorService } from '../../services/mediator/mediator.service';
+import { StrategyService } from '../../services/strategy/strategy.service';
 import { Component, OnInit } from '@angular/core';
 import { Strategy } from '../../classes/strategy';
 import { GridOptions } from 'ag-grid';
@@ -13,6 +14,7 @@ export class StrategyTableComponent implements OnInit {
 
   strategyNames: string[];
   newStrategy: Strategy;
+  selectedStrategy: Strategy;
   strategies: Strategy[];
 
   gridOptions: GridOptions;
@@ -20,7 +22,10 @@ export class StrategyTableComponent implements OnInit {
   rowData: Strategy[];
   grid: any;
 
-  constructor(private strategyService: StrategyService) { }
+  constructor(
+    private strategyService: StrategyService,
+    private mediatorService: MediatorService
+  ) { }
 
   ngOnInit() {
     this.initGrid();
@@ -30,26 +35,29 @@ export class StrategyTableComponent implements OnInit {
   }
 
   initGrid(): void {
+    this.initColumnData();
     this.gridOptions = <GridOptions>{
       onGridReady : () => {
         this.gridOptions.api.sizeColumnsToFit();
-      }
+      },
+      rowSelection: 'single',
+      // onRowSelected: this.onRowSelected,
+      suppressRowClickSelection: true
     };
-    this.initColumnData();
     this.gridOptions.columnDefs = this.columnDefs;
     this.gridOptions.rowData = [];
   }
 
   initColumnData(): void {
     this.columnDefs = [
-      {headerName: 'Name', field: 'strategyName'},
+      {headerName: 'Name', field: 'strategyName', checkboxSelection: true},
       {headerName: 'Ticker', field: 'stock'},
-      {headerName: 'Volume', field: 'startingVol'},
-      {headerName: 'Exit Profit %', field: 'exitProfitPercent'},
-      {headerName: 'Exit Loss %', field: 'exitLossPercent'},
-      {headerName: 'Std Devs', field: 'stdDevs'},
-      {headerName: 'Timespan', field: 'shortTime'},
-      {headerName: 'Running', field: 'onoff'}
+      {headerName: 'Volume', field: 'startingVol', editable: true },
+      {headerName: 'Exit Profit %', field: 'exitProfitPercent', editable: true },
+      {headerName: 'Exit Loss %', field: 'exitLossPercent', editable: true },
+      {headerName: 'Std Devs', field: 'stdDevs', editable: true },
+      {headerName: 'Timespan', field: 'shortTime', editable: true },
+      {headerName: 'Running', field: 'onoff', editable: true }
     ];
   }
 
@@ -76,7 +84,7 @@ export class StrategyTableComponent implements OnInit {
 
   createStrategy(): void {
     console.log(this.newStrategy);
-    this.strategyService.createStrategy(this.newStrategy)
+    this.strategyService.createOrUpdateStrategy(this.newStrategy)
       .subscribe(id => {
         console.log(id);
         this.newStrategy.id = id;
@@ -85,6 +93,28 @@ export class StrategyTableComponent implements OnInit {
         // udpateRowData is what will re-render the grid
         this.gridOptions.api.updateRowData({add: [this.newStrategy]});
         this.resetNewStrategy();
+      });
+  }
+
+  onRowSelected(event): void {
+    const node = event.node;
+    if (node.selected) {
+      this.selectedStrategy = node.data;
+      this.mediatorService.selectedStrategy.next(this.selectedStrategy);
+      console.log('selected strategy: ' + this.selectedStrategy);
+    }
+  }
+
+  onCellValueChanged(event): void {
+    console.log('cell value changed event');
+    console.log(event);
+    const updatedStrategy = event.data;
+    if (typeof(updatedStrategy.onoff) !== typeof(true)) {
+      updatedStrategy.onoff === 'false' ? updatedStrategy.onoff = false : updatedStrategy.onoff = true;
+    }
+    this.strategyService.createOrUpdateStrategy(updatedStrategy)
+      .subscribe(ret => {
+        console.log('Updated strategy. Server Response: ' + ret);
       });
   }
 

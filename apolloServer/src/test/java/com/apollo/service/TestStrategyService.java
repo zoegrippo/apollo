@@ -34,7 +34,7 @@ public class TestStrategyService {
         strats.add(s1);
         List<Strategy> allStrats = new ArrayList<>();
         allStrats.add(s1);
-        allStrats.add(s1);
+        allStrats.add(s2);
 
         when(data.findAll()).thenReturn(allStrats);
         when(data.findStrategiesByOnoffIs(true)).thenReturn(strats);
@@ -44,7 +44,6 @@ public class TestStrategyService {
     @Test
     public void canGetActiveTickers() {
         Strategy s1 = new Strategy("Bollinger Bands", true, 200, "AAPL", 0.2, 0.1, (double) 2, 20, new User("Zoe"));
-        Strategy s2 = new Strategy("Bollinger Bands", false, 200, "TSLA", 0.2, 0.1, (double) 2, 20, new User("Zoe"));
         List<String> l = new ArrayList<>();
         l.add(s1.getStock());
 

@@ -74,7 +74,7 @@ public class AlgoDispatchService {
                     Trade firsTrade = tradeList.get(0);
                     double tradesum = 0.0;
                     for (Trade t : tradeList) {
-                        if (t.getState().equals("filled")) tradesum += t.getSize() * t.getPrice() * (t.getBuy() ? -1 : 1);
+                        tradesum += t.getSize() * t.getPrice() * (t.getBuy() ? -1 : 1);
                     }
                     // get current asset value
                     long numBuy = tradeList.stream().filter(Trade::getBuy).count();

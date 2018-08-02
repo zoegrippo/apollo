@@ -2,17 +2,17 @@
 @import "~ag-grid/dist/styles/ag-theme-balham.css";
 
 .strategy-table {
-    height: calc(50vh - 60px);
-    width: 1000px;
+    height: calc(40vh - 70px);
+    width: 800px;
     margin: auto;
-    padding: 25px 0 10px 0;
+    padding: 5px 0 0px 0;
 }
 
 .strategy-create-form {
-    width: 1000px;
-    padding-bottom: 10px;
+    width: 800px;
+    padding: 10px 0 0px 0;
     margin: auto;
-    border-bottom: 1px solid lightgrey;
+    /* border-bottom: 1px solid lightgrey; */
 }
 
 .strategy-create-form td {
