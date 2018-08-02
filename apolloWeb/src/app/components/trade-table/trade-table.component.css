@@ -1,0 +1,9 @@
+@import "~ag-grid/dist/styles/ag-grid.css";
+@import "~ag-grid/dist/styles/ag-theme-balham.css";
+
+.trade-table {
+    height: calc(40vh - 60px);
+    width: 550px;
+    margin: auto;
+    padding: 5px 0 10px 0;
+}

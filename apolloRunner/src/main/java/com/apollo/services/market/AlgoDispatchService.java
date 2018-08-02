@@ -64,30 +64,38 @@ public class AlgoDispatchService {
                 log.warn("Unknown strategy type " + s.getStrategyName());
                 return;
             }
-            // check if exit condition is met
-            Collection<Trade> trades = tradeService.getTradeByStrategy(s.getId());
-            List<Trade> tradeList = new ArrayList<>(trades);
-            if (tradeList.size() > 2) {
-                tradeList.sort(Comparator.comparing(Trade::getTradeDate));
-                Trade firsTrade = tradeList.get(0);
-                double sum = 0.0;
-                for (Trade t : tradeList) {
-                    if (t.getState().equals("filled")) sum += t.getSize() * t.getPrice() * (t.getBuy() ? -1 : 1);
-                }
-                double plp = (sum / (firsTrade.getSize() * firsTrade.getPrice()));
-                log.info("PL % for strat "+ s.getId() + ": "+ plp);
-;                if (plp > s.getExitProfitPercent() || plp < -1 * s.getExitLossPercent()) {
-                    log.info("Strategy " + s.getId() + " hit exit condition");
-                    s.setOnoff(false);
-                    return;
-                }
-            }
-            // Get strategy result
             try {
+                // check if exit condition is met
+                Collection<Trade> trades = tradeService.getTradeByStrategy(s.getId());
+                List<Trade> tradeList = new ArrayList<>(trades);
+                if (tradeList.size() > 2) {
+                    // get profit from trades
+                    tradeList.sort(Comparator.comparing(Trade::getTradeDate));
+                    Trade firsTrade = tradeList.get(0);
+                    double tradesum = 0.0;
+                    for (Trade t : tradeList) {
+                        tradesum += t.getSize() * t.getPrice() * (t.getBuy() ? -1 : 1);
+                    }
+                    // get current asset value
+                    long numBuy = tradeList.stream().filter(Trade::getBuy).count();
+                    long numSell = tradeList.stream().filter(t-> !t.getBuy()).count();
+                    double assetValue = (numBuy - numSell) * s.getStartingVol() * store.getLatestPrice(s.getStock().toLowerCase()).getPrice();
+                    // calculate pl
+                    double pl = (tradesum + assetValue)/ (firsTrade.getSize() * firsTrade.getPrice());
+                    log.info("PL % for strat "+ s.getId() + ": "+ pl);
+                    ;                if (pl > s.getExitProfitPercent() || pl < -1 * s.getExitLossPercent()) {
+                        log.info("Strategy " + s.getId() + " hit exit condition");
+                        s.setOnoff(false);
+                        return;
+                    }
+                }
+                // Get strategy result
                 Trade t = runner.run();
                 if (t == null) {
                     log.info("Strategy " + s.getId() +  " made no trade");
                     return;
+                } else if (tradeList.size() > 1 && tradeList.get(tradeList.size()-1).getBuy() == t.getBuy()) {
+                    log.info("Stopped Strategy " + s.getId() + "from doubling down on position");
                 }
 
                 // add trade to db

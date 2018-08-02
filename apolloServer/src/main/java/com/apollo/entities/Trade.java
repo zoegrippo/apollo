@@ -25,6 +25,9 @@ public class Trade implements Serializable {
     @ManyToOne
     private User user;
 
+    public Trade() {
+    }
+
     public Trade(int i, boolean b, double v, int i1, String aapl, Timestamp timestamp, String completed, Strategy strategy, User user) {}
 
     public Trade(boolean buy, double price, Integer size, String stock, Timestamp tradeDate, String state, Strategy strategy, User user) {
