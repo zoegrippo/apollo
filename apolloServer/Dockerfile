@@ -1,11 +1,7 @@
 FROM dockerreg.training.local:5000/java
 MAINTAINER Ketan Reddy <ketan.reddy@citi.com>
 
-CMD ["/opt/itrs/netprobe/netprobe.linux_64", "$APPNAME", "-port", "7036", "-nopassword", "&"]
-
-RUN echo "#!/bin/bash \n java $JAVAOPT -jar /usr/share/apollo/server.jar" > ./entrypoint.sh
-RUN chmod +x ./entrypoint.sh
-ENTRYPOINT ["./entrypoint.sh"]
+CMD ["/opt/itrs/netprobe/netprobe.linux_64", "$APPNAME", "-port", "7036", "-nopassword", "&" "java", " $JAVAOPT", "-jar", "/usr/share/apollo/server.jar"]
 
 EXPOSE 8081
 
