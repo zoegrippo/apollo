@@ -47,7 +47,6 @@ public class MessageReceiver {
         message = message.replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>", "");
         OrderReply result = converter.jaxbXMLToObject(message, OrderReply.class);
         Trade t = tradeService.getTradeById(Integer.parseInt(result.getId()));
-        //System.out.println("RESULT: " + result.getResult());
         t.setState(result.getResult().toLowerCase());
         tradeService.updateTrade(t);
     }
