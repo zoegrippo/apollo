@@ -48,6 +48,6 @@ public class MessageReceiver {
         OrderReply result = converter.jaxbXMLToObject(message, OrderReply.class);
         Trade t = tradeService.getTradeById(Integer.parseInt(result.getId()));
         t.setState(result.getResult().toLowerCase());
-        tradeService.updateTrade(t);
+        tradeService.createOrUpdate(t);
     }
  }

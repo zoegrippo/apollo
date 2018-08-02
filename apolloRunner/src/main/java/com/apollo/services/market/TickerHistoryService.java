@@ -48,4 +48,8 @@ public class TickerHistoryService {
         }
     }
 
+    public Quote getLatestPrice (String symbol) {
+        return history.get(symbol).get(0);
+    }
+
 }
