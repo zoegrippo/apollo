@@ -19,18 +19,30 @@ export class TradeTableComponent implements OnInit {
 
   ngOnInit() {
     this.initGrid();
-    this.getTradesByStrategyId(1);
+    console.log('trade-table initialized');
+  }
+
+  initSubscriptions(): void {
+    this.tradeService.trades.subscribe(trades => {
+      console.log('trade-table got trades: ' + trades);
+      this.trades = trades;
+      this.gridOptions.rowData = this.trades;
+      // setRowData is what re-renders the grid with the new data
+      this.gridOptions.api.setRowData(trades);
+    });
   }
 
   initGrid(): void {
     this.gridOptions = <GridOptions>{
       onGridReady : () => {
         this.gridOptions.api.sizeColumnsToFit();
+        this.initSubscriptions();
       }
     };
     this.initColumnData();
     this.gridOptions.columnDefs = this.columnDefs;
     this.gridOptions.rowData = [];
+    console.log('trade-table ag-grid initialized!');
   }
 
   initColumnData(): void {
@@ -42,17 +54,6 @@ export class TradeTableComponent implements OnInit {
       {headerName: 'Date', field: 'tradeDate'},
       {headerName: 'Status', field: 'state'}
     ];
-  }
-
-  getTradesByStrategyId(strategyId: number): void {
-    this.tradeService.getTradesByStrategyId(strategyId)
-      .subscribe(trades => {
-        console.log(trades);
-        this.trades = trades;
-        this.gridOptions.rowData = this.trades;
-        // setRowData is what re-renders the grid with the new data
-        this.gridOptions.api.setRowData(trades);
-      });
   }
 
 }

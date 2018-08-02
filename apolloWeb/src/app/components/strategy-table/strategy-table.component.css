@@ -3,13 +3,13 @@
 
 .strategy-table {
     height: calc(50vh - 70px);
-    width: 1000px;
+    width: 1100px;
     margin: auto;
     padding: 25px 0 0px 0;
 }
 
 .strategy-create-form {
-    width: 1000px;
+    width: 1100px;
     padding: 10px 0 10px 0;
     margin: auto;
     border-bottom: 1px solid lightgrey;

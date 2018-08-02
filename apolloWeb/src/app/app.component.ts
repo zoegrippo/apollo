@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'apolloWeb';
   showStrategyTable = true;
+  buttonText = 'Show Trades';
+  toggleTable(): void {
+    this.showStrategyTable = !this.showStrategyTable;
+  }
 }

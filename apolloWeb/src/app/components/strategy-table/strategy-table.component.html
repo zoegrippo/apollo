@@ -1,3 +1,4 @@
+
 <ag-grid-angular
   
   #agGrid
@@ -6,6 +7,7 @@
   [gridOptions]="gridOptions"
   [enableColResize]="true"
   [animateRows]="true"
+  (rowSelected)="onRowSelected($event)"
   >
 </ag-grid-angular>
 
@@ -29,23 +31,23 @@
       </td>
       <td>
           <input class="input" type="number" 
-            [(ngModel)]="newStrategy.startingVol" placeholder="Volume">
+            [(ngModel)]="newStrategy.startingVol" placeholder="Vol">
       </td>
       <td>
           <input class="input" type="number" 
-            [(ngModel)]="newStrategy.exitProfitPercent" placeholder="Exit Profit Percentage">
+            [(ngModel)]="newStrategy.exitProfitPercent" placeholder="Exit Profit %">
       </td>
       <td>
           <input class="input" type="number" 
-            [(ngModel)]="newStrategy.exitLossPercent" placeholder="Exit Loss Percentage">
+            [(ngModel)]="newStrategy.exitLossPercent" placeholder="Exit Loss %">
       </td>
       <td>
           <input class="input" type="number" 
-            [(ngModel)]="newStrategy.stdDevs" placeholder="Standard Dev. Limit">
+            [(ngModel)]="newStrategy.stdDevs" placeholder="Std Dev Limit">
       </td>
       <td>
           <input class="input" type="number" 
-            [(ngModel)]="newStrategy.shortTime" placeholder="Average Timespan">
+            [(ngModel)]="newStrategy.shortTime" placeholder="Avg Timespan">
       </td>
       <td>
         <button (click)="createStrategy()" class="button is-success" title="Add Strategy">Add</button>

@@ -1,5 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
+  <button style="margin: 10px 0 0 10px;" class="button" (click)="toggleTable()">{{ buttonText }}</button>
   <app-strategy-table *ngIf='showStrategyTable; else showTradeTable'></app-strategy-table>
   <ng-template #showTradeTable><app-trade-table></app-trade-table></ng-template>
   <app-trade-graph></app-trade-graph>

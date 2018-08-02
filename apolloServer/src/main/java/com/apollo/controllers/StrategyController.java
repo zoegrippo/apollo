@@ -57,24 +57,4 @@ public class StrategyController {
             return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    @ApiOperation(value = "startStrategyById", nickname = "startStrategyById")
-    @PostMapping("/start")
-    public ResponseEntity<?> startStrategyById(@RequestBody ArrayList<Integer> ids) {
-        try {
-            return new ResponseEntity<>(service.startById(ids), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @ApiOperation(value = "stopStrategyById", nickname = "stopStrategyById")
-    @PostMapping("/stop")
-    public ResponseEntity<?> stopStrategyById(@RequestBody ArrayList<Integer> ids) {
-        try {
-            return new ResponseEntity<>(service.stopById(ids), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 }

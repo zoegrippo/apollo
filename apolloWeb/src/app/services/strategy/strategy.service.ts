@@ -25,7 +25,7 @@ export class StrategyService {
     return this.http.get<Strategy[]>(url);
   }
 
-  createStrategy(strategy: Strategy): Observable<any> {
+  createOrUpdateStrategy(strategy: Strategy): Observable<any> {
     // http request to create strategy
     // return new strategy id
     this.httpOptions = {
@@ -36,6 +36,7 @@ export class StrategyService {
     const url = `${SERVER}:${PORT}/strategy`;
     return this.http.post(url, JSON.stringify(strategy), this.httpOptions);
   }
+
 
   extractData(response: Response): any {
     const body = response.json();

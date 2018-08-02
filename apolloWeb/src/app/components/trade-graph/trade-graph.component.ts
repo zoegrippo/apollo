@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { TradeService } from '../../services/trade/trade.service';
 import { Trade } from '../../classes/trade';
+import { MediatorService } from '../../services/mediator/mediator.service';
 
 @Component({
   selector: 'app-trade-graph',
@@ -13,19 +14,30 @@ export class TradeGraphComponent implements OnInit {
   chart: Chart;
   trades: any[];
   xaxis = ['1', '2', '3', '4'];
-  constructor(private tradeService: TradeService) { }
+  constructor(
+    private tradeService: TradeService,
+    private mediatorService: MediatorService
+  ) { }
 
   ngOnInit() {
-    this.getTrades();
+    this.initSubscriptions();
     this.initChart();
   }
 
-  getTrades() {
-    this.tradeService.getTradesByStrategyId(1)
-      .subscribe(trades => {
-        console.log(trades);
-        this.trades = [1, 2, -2, 3];
-      });
+  initSubscriptions(): void {
+    this.mediatorService.selectedStrategy.subscribe(selectedStrategy => {
+      this.getTrades(selectedStrategy.id);
+    });
+    this.tradeService.trades.subscribe(trades => {
+      this.trades = [1, 2, -2, 3];
+      this.chart.data.datasets[0].data = this.trades;
+      this.chart.data.labels = this.xaxis;
+      this.chart.update();
+    });
+  }
+
+  getTrades(strategyId: number): void {
+    this.tradeService.getTradesByStrategyId(strategyId);
   }
 
   addSomething() {

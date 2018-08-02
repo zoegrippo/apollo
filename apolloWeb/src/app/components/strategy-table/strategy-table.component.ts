@@ -1,3 +1,4 @@
+import { MediatorService } from '../../services/mediator/mediator.service';
 import { StrategyService } from '../../services/strategy/strategy.service';
 import { Component, OnInit } from '@angular/core';
 import { Strategy } from '../../classes/strategy';
@@ -13,6 +14,7 @@ export class StrategyTableComponent implements OnInit {
 
   strategyNames: string[];
   newStrategy: Strategy;
+  selectedStrategy: Strategy;
   strategies: Strategy[];
 
   gridOptions: GridOptions;
@@ -20,7 +22,10 @@ export class StrategyTableComponent implements OnInit {
   rowData: Strategy[];
   grid: any;
 
-  constructor(private strategyService: StrategyService) { }
+  constructor(
+    private strategyService: StrategyService,
+    private mediatorService: MediatorService
+  ) { }
 
   ngOnInit() {
     this.initGrid();
@@ -35,7 +40,8 @@ export class StrategyTableComponent implements OnInit {
       onGridReady : () => {
         this.gridOptions.api.sizeColumnsToFit();
       },
-      rowSelection: 'multiple',
+      rowSelection: 'single',
+      // onRowSelected: this.onRowSelected,
       suppressRowClickSelection: true
     };
     this.gridOptions.columnDefs = this.columnDefs;
@@ -44,8 +50,7 @@ export class StrategyTableComponent implements OnInit {
 
   initColumnData(): void {
     this.columnDefs = [
-      {headerName: 'Graph', checkboxSelection: true, width: 35},
-      {headerName: 'Name', field: 'strategyName'},
+      {headerName: 'Name', field: 'strategyName', checkboxSelection: true},
       {headerName: 'Ticker', field: 'stock'},
       {headerName: 'Volume', field: 'startingVol'},
       {headerName: 'Exit Profit %', field: 'exitProfitPercent'},
@@ -79,7 +84,7 @@ export class StrategyTableComponent implements OnInit {
 
   createStrategy(): void {
     console.log(this.newStrategy);
-    this.strategyService.createStrategy(this.newStrategy)
+    this.strategyService.createOrUpdateStrategy(this.newStrategy)
       .subscribe(id => {
         console.log(id);
         this.newStrategy.id = id;
@@ -89,6 +94,15 @@ export class StrategyTableComponent implements OnInit {
         this.gridOptions.api.updateRowData({add: [this.newStrategy]});
         this.resetNewStrategy();
       });
+  }
+
+  onRowSelected(event): void {
+    const node = event.node;
+    if (node.selected) {
+      this.selectedStrategy = node.data;
+      this.mediatorService.selectedStrategy.next(this.selectedStrategy);
+      console.log('selected strategy: ' + this.selectedStrategy);
+    }
   }
 
   resetNewStrategy(): void {
