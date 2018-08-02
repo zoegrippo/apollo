@@ -93,8 +93,7 @@ public class AlgoDispatchService {
                 // add trade to db
                 log.info("Strat "+s.getId()+" make trade on " + (t.getBuy() ? "Buy" : "Sell") + " side, " + s.getStock() + " at " +t.getPrice());
                 log.info(t.toString());
-                tradeService.createOrUpdate(t);
-
+                tradeService.create(t);
                 //send trade
                 // Send a message
                 MessageCreator messageCreator = session -> session.createTextMessage(new Order(t).toString());
