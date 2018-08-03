@@ -1,6 +1,6 @@
--- DROP TABLE IF EXISTS trades;
--- DROP TABLE IF EXISTS strategies;
--- DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS trades;
+DROP TABLE IF EXISTS strategies;
+DROP TABLE IF EXISTS users;
 
 create table users (
 	id int primary key not null auto_increment,
