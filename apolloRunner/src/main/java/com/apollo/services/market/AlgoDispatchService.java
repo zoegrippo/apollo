@@ -83,9 +83,10 @@ public class AlgoDispatchService {
                     // calculate pl
                     double pl = (tradesum + assetValue)/ (firsTrade.getSize() * firsTrade.getPrice());
                     log.info("PL % for strat "+ s.getId() + ": "+ pl);
-                    ;                if (pl > s.getExitProfitPercent() || pl < -1 * s.getExitLossPercent()) {
+                    if (pl > s.getExitProfitPercent() || pl < -1 * s.getExitLossPercent()) {
                         log.info("Strategy " + s.getId() + " hit exit condition");
                         s.setOnoff(false);
+                        strategyService.update(s);
                         return;
                     }
                 }

@@ -9,4 +9,7 @@ public interface StrategyService {
     Collection<Strategy> getActive();
 
     Collection<String> getTickers();
+
+     String update(Strategy s);
+
 }
