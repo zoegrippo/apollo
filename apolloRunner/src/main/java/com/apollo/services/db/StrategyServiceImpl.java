@@ -21,4 +21,18 @@ public class StrategyServiceImpl implements StrategyService {
     public Collection<String> getTickers() {
         return dao.findStockByOnoffIsTrue();
     }
+
+    @Override
+    public String update(Strategy s) {
+        if (s.getId() == null) {
+            s.setId(0);
+        }
+        if (dao.exists(s.getId())) {
+            dao.save(s);
+            return "Updated trade";
+        } else {
+            return dao.save(s).getId().toString();
+        }
+    }
+
 }
