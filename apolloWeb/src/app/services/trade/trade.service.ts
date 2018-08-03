@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment.prod';
 import { MediatorService } from './../mediator/mediator.service';
 import { Trade } from '../../classes/trade';
 import { Injectable } from '@angular/core';
@@ -21,7 +22,7 @@ export class TradeService {
 
   getTradesByStrategyId(strategyId: number): void {
     console.log('trade-service: getting trades for strategyId: ' + strategyId);
-    const url = `${SERVER}:${PORT}/trade/${strategyId}`;
+    const url = `${environment.host}/trade/${strategyId}`;
     this.http.get<Trade[]>(url).subscribe(trades => {
       this.trades.next(trades);
       console.log('trade-service: trades have been returned from http');
@@ -33,7 +34,7 @@ export class TradeService {
   }
 
   getLatestTrades(strategyId: number, tradeId: any) {
-    const url = `${SERVER}:${PORT}/trade`;
+    const url = `${environment.host}/trade`;
     let params = new HttpParams();
     // HttpParams is immutable so append methods return new instances
     params = params.append('id', String(strategyId));
