@@ -28,6 +28,7 @@ export class StrategyService {
   createOrUpdateStrategy(strategy: Strategy): Observable<any> {
     // http request to create strategy
     // return new strategy id
+    strategy.strategyName = strategy.strategyName.replace(' ', '').toLowerCase();
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

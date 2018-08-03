@@ -89,6 +89,8 @@ export class TradeGraphComponent implements OnInit {
         ]
       },
       options: {
+        maintainAspectRatio: false,
+        responsive: true,
         tooltips: {
           callbacks: {
             label: function(tooltipItems, data) {
