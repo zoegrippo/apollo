@@ -1,12 +1,56 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
-  <app-trade-graph></app-trade-graph>
+  <section class="hero is-primary" style="height:10vh;">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title" style="margin-top:-40px;">
+          Apollo
+        </h1>
+        <h2 class="subtitle">
+          Strategic Equity Trading
+        </h2>
+      </div>
+    </div>
+  </section>
   
-  <span style="margin:auto; width:100%;" class="columns">
-    <app-strategy-table class="column"></app-strategy-table>
-    <app-trade-table class="column"></app-trade-table>
-  </span>
   
+  <div class="box">
+
+  <div class="tile is-ancestor">
+      <div class="tile is-vertical is-8">
+        <div class="tile is-parent" style="height:20vh;">
+          <article class="tile is-child notification">
+            <div class="content" style="">
+              <!-- Content -->
+              <app-trade-graph></app-trade-graph>
+            </div>
+          </article>
+        </div>
+        <div class="tile is-parent">
+          <article class="tile is-child notification">
+            <div class="content">
+              <!-- Content -->
+              <app-strategy-table class=""></app-strategy-table>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="tile is-parent">
+        <article class="tile is-child notification">
+          <div class="content">
+            <div class="content">
+              <!-- Content -->
+              <app-trade-table></app-trade-table>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  <!-- <span style="margin:auto; width:100%;" class="columns">
+    
+    
+  </span> -->
+</div>
 </div>
 
 

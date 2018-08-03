@@ -3,16 +3,14 @@
 
 .strategy-table {
     height: calc(40vh - 70px);
-    width: 800px;
+    width: 60vw;
     margin: auto;
-    padding: 5px 0 0px 0;
 }
 
 .strategy-create-form {
-    width: 800px;
+    width: 60vw;
     padding: 10px 0 0px 0;
     margin: auto;
-    /* border-bottom: 1px solid lightgrey; */
 }
 
 .strategy-create-form td {

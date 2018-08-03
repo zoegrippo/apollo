@@ -2,8 +2,7 @@
 @import "~ag-grid/dist/styles/ag-theme-balham.css";
 
 .trade-table {
-    height: calc(40vh - 60px);
-    width: 550px;
+    height: 80vh;
+    width: 30vw;
     margin: auto;
-    padding: 5px 0 10px 0;
 }
