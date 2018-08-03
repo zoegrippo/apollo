@@ -45,3 +45,5 @@ create table trades (
     FOREIGN KEY (strategyid) references strategies(id),
     FOREIGN KEY (userid) references users(id)
 );
+
+INSERT INTO users VALUES (1, 'Root User');
