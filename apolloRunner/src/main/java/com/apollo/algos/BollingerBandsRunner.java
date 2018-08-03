@@ -51,10 +51,10 @@ public class BollingerBandsRunner implements IAlgoRunner {
         double lastPrice = history.get(0).getPrice();
         if ( lastPrice>= movingAvg + standardDeviation * strategy.getStdDevs()) {
             // short
-            return new Trade(false, lastPrice, strategy.getStartingVol(), strategy.getStock(), Timestamp.from(Instant.now()), "inprogress", strategy, strategy.getUser());
+            return new Trade(true, lastPrice, strategy.getStartingVol(), strategy.getStock(), Timestamp.from(Instant.now()), "inprogress", strategy, strategy.getUser());
         } else if (lastPrice <= movingAvg - standardDeviation * strategy.getStdDevs()) {
             // long
-            return new Trade(true, lastPrice, strategy.getStartingVol(), strategy.getStock(), Timestamp.from(Instant.now()), "inprogress", strategy, strategy.getUser());
+            return new Trade(false, lastPrice, strategy.getStartingVol(), strategy.getStock(), Timestamp.from(Instant.now()), "inprogress", strategy, strategy.getUser());
         } else {
             // no trade action
             return null;

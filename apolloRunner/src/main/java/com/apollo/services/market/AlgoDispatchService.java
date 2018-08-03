@@ -24,6 +24,8 @@ import org.springframework.stereotype.Service;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -41,6 +43,8 @@ public class AlgoDispatchService {
     private TradeService tradeService;
 
     private StrategyService strategyService;
+
+    private Trade exitTrade;
 
     @Autowired
     public AlgoDispatchService(TickerHistoryService store, ApplicationContext context, TradeService tradeService, StrategyService strategyService) {
@@ -83,10 +87,12 @@ public class AlgoDispatchService {
                     // calculate pl
                     double pl = (tradesum + assetValue)/ (firsTrade.getSize() * firsTrade.getPrice());
                     log.info("PL % for strat "+ s.getId() + ": "+ pl);
-                    ;                if (pl > s.getExitProfitPercent() || pl < -1 * s.getExitLossPercent()) {
+                    if (pl > s.getExitProfitPercent() || pl < -1 * s.getExitLossPercent()) {
                         log.info("Strategy " + s.getId() + " hit exit condition");
                         s.setOnoff(false);
-                        return;
+                        strategyService.update(s);
+                        boolean buysell = numBuy - numSell <= 0;
+                        exitTrade = new Trade(buysell, store.getLatestPrice(s.getStock().toLowerCase()).getPrice(), s.getStartingVol(), s.getStock(), Timestamp.from(Instant.now()), "inprogress", s, s.getUser());
                     }
                 }
                 // Get strategy result
@@ -94,17 +100,18 @@ public class AlgoDispatchService {
                 if (t == null) {
                     log.info("Strategy " + s.getId() +  " made no trade");
                     return;
-                } else if (tradeList.size() > 1 && tradeList.get(tradeList.size()-1).getBuy() == t.getBuy()) {
-                    log.info("Stopped Strategy " + s.getId() + "from doubling down on position");
+                } else if (tradeList.size() > 0 && exitTrade == null && tradeList.get(tradeList.size()-1).getBuy() == t.getBuy()) {
+                    log.info("Stopped Strategy " + s.getId() + " from doubling down on position");
+                    return;
                 }
-
                 // add trade to db
-                log.info("Strat "+s.getId()+" make trade on " + (t.getBuy() ? "Buy" : "Sell") + " side, " + s.getStock() + " at " +t.getPrice());
+                final Trade finalTrade = (exitTrade == null ? t : exitTrade); // check if exit condition was met
+                log.info("Strat " + s.getId() + " make trade on " + (t.getBuy() ? "Buy" : "Sell") + " side, " + s.getStock() + " at " + t.getPrice());
                 log.info(t.toString());
-                tradeService.create(t);
+                tradeService.create(finalTrade);
                 //send trade
                 // Send a message
-                MessageCreator messageCreator = session -> session.createTextMessage(new Order(t).toString());
+                MessageCreator messageCreator = session -> session.createTextMessage(new Order(finalTrade).toString());
                 JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
                 jmsTemplate.send("OrderBroker", messageCreator);
             } catch (TickerHistoryException e) {
