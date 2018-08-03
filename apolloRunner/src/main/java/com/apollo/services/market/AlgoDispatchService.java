@@ -94,12 +94,12 @@ public class AlgoDispatchService {
                 if (t == null) {
                     log.info("Strategy " + s.getId() +  " made no trade");
                     return;
-                } else if (tradeList.size() > 1 && tradeList.get(tradeList.size()-1).getBuy() == t.getBuy()) {
-                    log.info("Stopped Strategy " + s.getId() + "from doubling down on position");
+                } else if (tradeList.size() > 0 && tradeList.get(tradeList.size()-1).getBuy() == t.getBuy()) {
+                    log.info("Stopped Strategy " + s.getId() + " from doubling down on position");
+                    return;
                 }
-
                 // add trade to db
-                log.info("Strat "+s.getId()+" make trade on " + (t.getBuy() ? "Buy" : "Sell") + " side, " + s.getStock() + " at " +t.getPrice());
+                log.info("Strat " + s.getId() + " make trade on " + (t.getBuy() ? "Buy" : "Sell") + " side, " + s.getStock() + " at " + t.getPrice());
                 log.info(t.toString());
                 tradeService.create(t);
                 //send trade
