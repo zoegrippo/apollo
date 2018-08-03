@@ -86,6 +86,7 @@ public class AlgoDispatchService {
                     ;                if (pl > s.getExitProfitPercent() || pl < -1 * s.getExitLossPercent()) {
                         log.info("Strategy " + s.getId() + " hit exit condition");
                         s.setOnoff(false);
+                        strategyService.update(s);
                         return;
                     }
                 }
@@ -96,6 +97,7 @@ public class AlgoDispatchService {
                     return;
                 } else if (tradeList.size() > 1 && tradeList.get(tradeList.size()-1).getBuy() == t.getBuy()) {
                     log.info("Stopped Strategy " + s.getId() + "from doubling down on position");
+                    return;
                 }
 
                 // add trade to db
